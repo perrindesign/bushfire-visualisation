@@ -1,63 +1,8 @@
-<!DOCTYPE html>
-
-<head>
-  <meta charset="utf-8">
-  <script src="d3.js"></script>
-  <script src="https://unpkg.com/d3-simple-slider"></script>
-  <style>
-    body {
-      font-family: "avenir next", Arial, sans-serif;
-      font-size: 12px;
-      color: #696969;
-    }
-
-    .ticks {
-      font-size: 10px;
-    }
-
-    .track,
-    .track-inset,
-    .track-overlay {
-      stroke-linecap: round;
-    }
-
-    .track {
-      stroke: #000;
-      stroke-opacity: 0.3;
-      stroke-width: 10px;
-    }
-
-    .track-inset {
-      stroke: #ddd;
-      stroke-width: 8px;
-    }
-
-    .track-overlay {
-      pointer-events: stroke;
-      stroke-width: 50px;
-      stroke: transparent;
-      cursor: crosshair;
-    }
-
-    .handle {
-      fill: #fff;
-      stroke: #000;
-      stroke-opacity: 0.5;
-      stroke-width: 1.25px;
-    }
-  </style>
-</head>
-
-<body>
-  <h2>Bushfire Hotspots in Australia Test</h2>
-  <div id="slider"></div>
-
-  <script>
-    var formatDateIntoYear = d3.timeFormat("%Y");
+var formatDateIntoYear = d3.timeFormat("%Y");
     var formatDate = d3.timeFormat("%b %Y");
 
-    var startDate = new Date("2004-11-01"),
-      endDate = new Date("2017-04-01");
+    var startDate = new Date("2001-01-01"),
+      endDate = new Date("2015-12-01");
 
     var margin = { top: 0, right: 50, bottom: 0, left: 50 },
       width = 960 - margin.left - margin.right,
@@ -218,5 +163,3 @@
       });
 
     });
-  </script>
-</body>

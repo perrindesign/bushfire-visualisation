@@ -3,6 +3,7 @@
 //Formatting the dates
 var formatDateIntoYear = d3.timeFormat("%Y");
 var formatDate = d3.timeFormat("%b %Y");
+var searchDate = d3.timeFormat("%Y-%m");
 
 var startDate = new Date("2001-01-01"),
     endDate = new Date("2015-12-01");
@@ -64,7 +65,7 @@ function hue(h) {
     label
         .attr("x", x(h))
         .text(formatDate(h));
-    renderSpots();
+    renderSpots(searchDate(h));
 }
 
 //Map JS
@@ -140,19 +141,21 @@ d3.json("australia.json").then(function (data) {
         .style("stroke", "rgba(128,128,128,0.5)")
         .style("stroke-width", "1");
 
-    renderSpots("2012-01-08");
+    renderSpots("2012-01");
     
 
 });
   
 function renderSpots(date) {
-    //Load in cities data
+    //Load in hotspots data
     d3.csv("test.csv").then(function (data) {
 
         //dataset = data;
+        svg.selectAll("circle")
+            .remove();
 
         svg.selectAll("circle")
-            .data(data.filter(function(d){return d.acq_date == date;}))
+            .data(data.filter(function(d){return reformatDate(d.acq_date) == date;}))
             .enter()
             .append("circle")
             .attr("cx", function (d) {
@@ -168,8 +171,13 @@ function renderSpots(date) {
             .style("opacity", 0.75)
             .append("title")			//Simple tooltip
             .text(function (d) {
-                return d.place + ": Pop. " + formatAsThousands(d.population);
+                return d.acq_date + ": Time " + d.acq_time;
             });
 
     });
+}
+
+function reformatDate(d) {
+    var newD = new Date(d)
+    return newD.toISOString().substring(0, 7);
 }

@@ -64,7 +64,7 @@ function hue(h) {
     label
         .attr("x", x(h))
         .text(formatDate(h));
-    //svg.style("background-color", d3.hsl(h/1000000000, 0.8, 0.8));
+    renderSpots();
 }
 
 //Map JS
@@ -140,13 +140,19 @@ d3.json("australia.json").then(function (data) {
         .style("stroke", "rgba(128,128,128,0.5)")
         .style("stroke-width", "1");
 
+    renderSpots("2012-01-08");
+    
+
+});
+  
+function renderSpots(date) {
     //Load in cities data
     d3.csv("test.csv").then(function (data) {
 
         //dataset = data;
 
         svg.selectAll("circle")
-            .data(data)
+            .data(data.filter(function(d){return d.acq_date == date;}))
             .enter()
             .append("circle")
             .attr("cx", function (d) {
@@ -166,5 +172,4 @@ d3.json("australia.json").then(function (data) {
             });
 
     });
-
-});
+}

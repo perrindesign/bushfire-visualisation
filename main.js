@@ -141,7 +141,7 @@ d3.json("australia.json").then(function (data) {
         .style("stroke", "rgba(128,128,128,0.5)")
         .style("stroke-width", "1");
 
-    renderSpots("2012-01");
+    renderSpots("2001-01");
     
 
 });

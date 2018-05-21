@@ -1,0 +1,481 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis projectname="" version="3.0.2-Girona">
+  <title></title>
+  <autotransaction active="0"/>
+  <evaluateDefaultValues active="0"/>
+  <trust active="0"/>
+  <projectCrs>
+    <spatialrefsys>
+      <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+      <srsid>3452</srsid>
+      <srid>4326</srid>
+      <authid>EPSG:4326</authid>
+      <description>WGS 84</description>
+      <projectionacronym>longlat</projectionacronym>
+      <ellipsoidacronym>WGS84</ellipsoidacronym>
+      <geographicflag>true</geographicflag>
+    </spatialrefsys>
+  </projectCrs>
+  <layer-tree-group>
+    <customproperties/>
+    <layer-tree-layer expanded="1" providerKey="delimitedtext" id="fire_archive_M6_8149_68511c68_fb36_4804_882f_6099b7a12c88" checked="Qt::Checked" name="fire_archive_M6_8149" source="file:///Users/perrin/Documents/University%20of%20Sydney/Information%20Visualisation%20Design/Assessment%202/fire_archive_M6_8149.csv?type=csv&amp;xField=longitude&amp;yField=latitude&amp;crs=EPSG:4326&amp;spatialIndex=no&amp;subsetIndex=no&amp;watchFile=no&amp;subset=%22acq_date%22%20%3D%20'2012-04-22'">
+      <customproperties/>
+    </layer-tree-layer>
+    <custom-order enabled="0">
+      <item>fire_archive_M6_8149_68511c68_fb36_4804_882f_6099b7a12c88</item>
+    </custom-order>
+  </layer-tree-group>
+  <snapping-settings unit="1" type="1" intersection-snapping="0" tolerance="12" enabled="0" mode="2">
+    <individual-layer-settings>
+      <layer-setting type="1" id="fire_archive_M6_8149_68511c68_fb36_4804_882f_6099b7a12c88" tolerance="12" units="1" enabled="0"/>
+    </individual-layer-settings>
+  </snapping-settings>
+  <relations/>
+  <mapcanvas annotationsVisible="1" name="theMapCanvas">
+    <units>degrees</units>
+    <extent>
+      <xmin>112.05697499999999422</xmin>
+      <ymin>-44.45472499999999627</ymin>
+      <xmax>154.60402500000000714</xmax>
+      <ymax>-8.38827500000000015</ymax>
+    </extent>
+    <rotation>0</rotation>
+    <destinationsrs>
+      <spatialrefsys>
+        <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+        <srsid>3452</srsid>
+        <srid>4326</srid>
+        <authid>EPSG:4326</authid>
+        <description>WGS 84</description>
+        <projectionacronym>longlat</projectionacronym>
+        <ellipsoidacronym>WGS84</ellipsoidacronym>
+        <geographicflag>true</geographicflag>
+      </spatialrefsys>
+    </destinationsrs>
+    <rendermaptile>0</rendermaptile>
+  </mapcanvas>
+  <legend updateDrawingOrder="true">
+    <legendlayer checked="Qt::Checked" showFeatureCount="0" name="fire_archive_M6_8149" open="true" drawingOrder="-1">
+      <filegroup open="true" hidden="false">
+        <legendlayerfile isInOverview="0" visible="1" layerid="fire_archive_M6_8149_68511c68_fb36_4804_882f_6099b7a12c88"/>
+      </filegroup>
+    </legendlayer>
+  </legend>
+  <mapViewDocks/>
+  <mapViewDocks3D/>
+  <mapcanvas annotationsVisible="1" name="mAreaCanvas">
+    <units>degrees</units>
+    <extent>
+      <xmin>0</xmin>
+      <ymin>0</ymin>
+      <xmax>0</xmax>
+      <ymax>0</ymax>
+    </extent>
+    <rotation>0</rotation>
+    <destinationsrs>
+      <spatialrefsys>
+        <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+        <srsid>3452</srsid>
+        <srid>4326</srid>
+        <authid>EPSG:4326</authid>
+        <description>WGS 84</description>
+        <projectionacronym>longlat</projectionacronym>
+        <ellipsoidacronym>WGS84</ellipsoidacronym>
+        <geographicflag>true</geographicflag>
+      </spatialrefsys>
+    </destinationsrs>
+    <rendermaptile>0</rendermaptile>
+  </mapcanvas>
+  <mapcanvas annotationsVisible="1" name="mAreaCanvas">
+    <units>degrees</units>
+    <extent>
+      <xmin>0</xmin>
+      <ymin>0</ymin>
+      <xmax>0</xmax>
+      <ymax>0</ymax>
+    </extent>
+    <rotation>0</rotation>
+    <destinationsrs>
+      <spatialrefsys>
+        <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+        <srsid>3452</srsid>
+        <srid>4326</srid>
+        <authid>EPSG:4326</authid>
+        <description>WGS 84</description>
+        <projectionacronym>longlat</projectionacronym>
+        <ellipsoidacronym>WGS84</ellipsoidacronym>
+        <geographicflag>true</geographicflag>
+      </spatialrefsys>
+    </destinationsrs>
+    <rendermaptile>0</rendermaptile>
+  </mapcanvas>
+  <mapcanvas annotationsVisible="1" name="mAreaCanvas">
+    <units>degrees</units>
+    <extent>
+      <xmin>0</xmin>
+      <ymin>0</ymin>
+      <xmax>0</xmax>
+      <ymax>0</ymax>
+    </extent>
+    <rotation>0</rotation>
+    <destinationsrs>
+      <spatialrefsys>
+        <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+        <srsid>3452</srsid>
+        <srid>4326</srid>
+        <authid>EPSG:4326</authid>
+        <description>WGS 84</description>
+        <projectionacronym>longlat</projectionacronym>
+        <ellipsoidacronym>WGS84</ellipsoidacronym>
+        <geographicflag>true</geographicflag>
+      </spatialrefsys>
+    </destinationsrs>
+    <rendermaptile>0</rendermaptile>
+  </mapcanvas>
+  <projectlayers>
+    <maplayer minScale="1e+8" autoRefreshEnabled="0" simplifyDrawingHints="1" maxScale="0" type="vector" refreshOnNotifyEnabled="0" autoRefreshTime="0" refreshOnNotifyMessage="" geometry="Point" simplifyAlgorithm="0" simplifyLocal="1" simplifyDrawingTol="1" hasScaleBasedVisibilityFlag="0" simplifyMaxScale="1" readOnly="0" labelsEnabled="0">
+      <extent>
+        <xmin>114.69700000000000273</xmin>
+        <ymin>-39.86699999999999733</ymin>
+        <xmax>149.90299999999999159</xmax>
+        <ymax>-14.29400000000000048</ymax>
+      </extent>
+      <id>fire_archive_M6_8149_68511c68_fb36_4804_882f_6099b7a12c88</id>
+      <datasource>file:../Assessment%202/fire_archive_M6_8149.csv?type=csv&amp;xField=longitude&amp;yField=latitude&amp;crs=EPSG:4326&amp;spatialIndex=no&amp;subsetIndex=no&amp;watchFile=no&amp;subset=%22acq_date%22%20%3D%20'2012-04-22'</datasource>
+      <keywordList>
+        <value></value>
+      </keywordList>
+      <layername>fire_archive_M6_8149</layername>
+      <srs>
+        <spatialrefsys>
+          <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+          <srsid>3452</srsid>
+          <srid>4326</srid>
+          <authid>EPSG:4326</authid>
+          <description>WGS 84</description>
+          <projectionacronym>longlat</projectionacronym>
+          <ellipsoidacronym>WGS84</ellipsoidacronym>
+          <geographicflag>true</geographicflag>
+        </spatialrefsys>
+      </srs>
+      <resourceMetadata>
+        <identifier></identifier>
+        <parentidentifier></parentidentifier>
+        <language></language>
+        <type></type>
+        <title></title>
+        <abstract></abstract>
+        <fees></fees>
+        <encoding></encoding>
+        <crs>
+          <spatialrefsys>
+            <proj4></proj4>
+            <srsid>0</srsid>
+            <srid>0</srid>
+            <authid></authid>
+            <description></description>
+            <projectionacronym></projectionacronym>
+            <ellipsoidacronym></ellipsoidacronym>
+            <geographicflag>false</geographicflag>
+          </spatialrefsys>
+        </crs>
+        <extent/>
+        <links/>
+      </resourceMetadata>
+      <provider encoding="UTF-8">delimitedtext</provider>
+      <vectorjoins/>
+      <layerDependencies/>
+      <dataDependencies/>
+      <expressionfields/>
+      <map-layer-style-manager current="default">
+        <map-layer-style name="default"/>
+      </map-layer-style-manager>
+      <auxiliaryLayer/>
+      <renderer-v2 type="singleSymbol" forceraster="0" enableorderby="0" symbollevels="0">
+        <symbols>
+          <symbol type="marker" name="0" clip_to_extent="1" alpha="1">
+            <layer locked="0" pass="0" class="SimpleMarker" enabled="1">
+              <prop k="angle" v="0"/>
+              <prop k="color" v="129,7,47,255"/>
+              <prop k="horizontal_anchor_point" v="1"/>
+              <prop k="joinstyle" v="bevel"/>
+              <prop k="name" v="circle"/>
+              <prop k="offset" v="0,0"/>
+              <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+              <prop k="offset_unit" v="MM"/>
+              <prop k="outline_color" v="35,35,35,255"/>
+              <prop k="outline_style" v="solid"/>
+              <prop k="outline_width" v="0"/>
+              <prop k="outline_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+              <prop k="outline_width_unit" v="MM"/>
+              <prop k="scale_method" v="diameter"/>
+              <prop k="size" v="2"/>
+              <prop k="size_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+              <prop k="size_unit" v="MM"/>
+              <prop k="vertical_anchor_point" v="1"/>
+              <data_defined_properties>
+                <Option type="Map">
+                  <Option type="QString" value="" name="name"/>
+                  <Option name="properties"/>
+                  <Option type="QString" value="collection" name="type"/>
+                </Option>
+              </data_defined_properties>
+            </layer>
+          </symbol>
+        </symbols>
+        <rotation/>
+        <sizescale/>
+      </renderer-v2>
+      <customproperties>
+        <property key="dualview/previewExpressions">
+          <value>"confidence"</value>
+        </property>
+      </customproperties>
+      <blendMode>0</blendMode>
+      <featureBlendMode>0</featureBlendMode>
+      <layerOpacity>1</layerOpacity>
+      <fieldConfiguration>
+        <field name="latitude">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="longitude">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="brightness">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="scan">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="track">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="acq_date">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="acq_time">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="satellite">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="instrument">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="confidence">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="version">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="bright_t31">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+        <field name="frp">
+          <editWidget type="">
+            <config>
+              <Option/>
+            </config>
+          </editWidget>
+        </field>
+      </fieldConfiguration>
+      <aliases>
+        <alias field="latitude" name="" index="0"/>
+        <alias field="longitude" name="" index="1"/>
+        <alias field="brightness" name="" index="2"/>
+        <alias field="scan" name="" index="3"/>
+        <alias field="track" name="" index="4"/>
+        <alias field="acq_date" name="" index="5"/>
+        <alias field="acq_time" name="" index="6"/>
+        <alias field="satellite" name="" index="7"/>
+        <alias field="instrument" name="" index="8"/>
+        <alias field="confidence" name="" index="9"/>
+        <alias field="version" name="" index="10"/>
+        <alias field="bright_t31" name="" index="11"/>
+        <alias field="frp" name="" index="12"/>
+      </aliases>
+      <excludeAttributesWMS/>
+      <excludeAttributesWFS/>
+      <defaults>
+        <default expression="" field="latitude" applyOnUpdate="0"/>
+        <default expression="" field="longitude" applyOnUpdate="0"/>
+        <default expression="" field="brightness" applyOnUpdate="0"/>
+        <default expression="" field="scan" applyOnUpdate="0"/>
+        <default expression="" field="track" applyOnUpdate="0"/>
+        <default expression="" field="acq_date" applyOnUpdate="0"/>
+        <default expression="" field="acq_time" applyOnUpdate="0"/>
+        <default expression="" field="satellite" applyOnUpdate="0"/>
+        <default expression="" field="instrument" applyOnUpdate="0"/>
+        <default expression="" field="confidence" applyOnUpdate="0"/>
+        <default expression="" field="version" applyOnUpdate="0"/>
+        <default expression="" field="bright_t31" applyOnUpdate="0"/>
+        <default expression="" field="frp" applyOnUpdate="0"/>
+      </defaults>
+      <constraints>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="latitude" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="longitude" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="brightness" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="scan" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="track" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="acq_date" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="acq_time" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="satellite" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="instrument" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="confidence" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="version" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="bright_t31" notnull_strength="0"/>
+        <constraint exp_strength="0" constraints="0" unique_strength="0" field="frp" notnull_strength="0"/>
+      </constraints>
+      <constraintExpressions>
+        <constraint exp="" desc="" field="latitude"/>
+        <constraint exp="" desc="" field="longitude"/>
+        <constraint exp="" desc="" field="brightness"/>
+        <constraint exp="" desc="" field="scan"/>
+        <constraint exp="" desc="" field="track"/>
+        <constraint exp="" desc="" field="acq_date"/>
+        <constraint exp="" desc="" field="acq_time"/>
+        <constraint exp="" desc="" field="satellite"/>
+        <constraint exp="" desc="" field="instrument"/>
+        <constraint exp="" desc="" field="confidence"/>
+        <constraint exp="" desc="" field="version"/>
+        <constraint exp="" desc="" field="bright_t31"/>
+        <constraint exp="" desc="" field="frp"/>
+      </constraintExpressions>
+      <attributeactions>
+        <defaultAction value="{00000000-0000-0000-0000-000000000000}" key="Canvas"/>
+      </attributeactions>
+      <attributetableconfig sortExpression="" actionWidgetStyle="dropDown" sortOrder="0">
+        <columns>
+          <column type="field" name="latitude" width="-1" hidden="0"/>
+          <column type="field" name="longitude" width="-1" hidden="0"/>
+          <column type="field" name="brightness" width="-1" hidden="0"/>
+          <column type="field" name="scan" width="-1" hidden="0"/>
+          <column type="field" name="track" width="-1" hidden="0"/>
+          <column type="field" name="acq_date" width="-1" hidden="0"/>
+          <column type="field" name="acq_time" width="-1" hidden="0"/>
+          <column type="field" name="satellite" width="-1" hidden="0"/>
+          <column type="field" name="instrument" width="-1" hidden="0"/>
+          <column type="field" name="confidence" width="-1" hidden="0"/>
+          <column type="field" name="version" width="-1" hidden="0"/>
+          <column type="field" name="bright_t31" width="-1" hidden="0"/>
+          <column type="field" name="frp" width="-1" hidden="0"/>
+          <column type="actions" width="-1" hidden="1"/>
+        </columns>
+      </attributetableconfig>
+      <editform></editform>
+      <editforminit/>
+      <editforminitcodesource>0</editforminitcodesource>
+      <editforminitfilepath></editforminitfilepath>
+      <editforminitcode><![CDATA[]]></editforminitcode>
+      <featformsuppress>0</featformsuppress>
+      <editorlayout>generatedlayout</editorlayout>
+      <editable/>
+      <labelOnTop/>
+      <widgets/>
+      <conditionalstyles>
+        <rowstyles/>
+        <fieldstyles/>
+      </conditionalstyles>
+      <expressionfields/>
+      <previewExpression>"confidence"</previewExpression>
+      <mapTip></mapTip>
+    </maplayer>
+  </projectlayers>
+  <layerorder>
+    <layer id="fire_archive_M6_8149_68511c68_fb36_4804_882f_6099b7a12c88"/>
+  </layerorder>
+  <properties>
+    <Measurement>
+      <DistanceUnits type="QString"></DistanceUnits>
+      <AreaUnits type="QString"></AreaUnits>
+    </Measurement>
+    <PAL>
+      <ShowingAllLabels type="bool">false</ShowingAllLabels>
+      <DrawOutlineLabels type="bool">true</DrawOutlineLabels>
+      <CandidatesPolygon type="int">30</CandidatesPolygon>
+      <CandidatesPoint type="int">16</CandidatesPoint>
+      <ShowingPartialsLabels type="bool">true</ShowingPartialsLabels>
+      <CandidatesLine type="int">50</CandidatesLine>
+      <SearchMethod type="int">0</SearchMethod>
+      <DrawRectOnly type="bool">false</DrawRectOnly>
+      <ShowingCandidates type="bool">false</ShowingCandidates>
+    </PAL>
+    <PositionPrecision>
+      <DecimalPlaces type="int">2</DecimalPlaces>
+      <Automatic type="bool">true</Automatic>
+    </PositionPrecision>
+    <Paths>
+      <Absolute type="bool">false</Absolute>
+    </Paths>
+    <SpatialRefSys>
+      <ProjectionsEnabled type="int">1</ProjectionsEnabled>
+    </SpatialRefSys>
+    <Measure>
+      <Ellipsoid type="QString">WGS84</Ellipsoid>
+    </Measure>
+    <Gui>
+      <CanvasColorRedPart type="int">255</CanvasColorRedPart>
+      <CanvasColorBluePart type="int">255</CanvasColorBluePart>
+      <SelectionColorGreenPart type="int">255</SelectionColorGreenPart>
+      <SelectionColorBluePart type="int">0</SelectionColorBluePart>
+      <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
+      <SelectionColorRedPart type="int">255</SelectionColorRedPart>
+      <SelectionColorAlphaPart type="int">255</SelectionColorAlphaPart>
+    </Gui>
+    <Legend>
+      <filterByMap type="bool">false</filterByMap>
+    </Legend>
+  </properties>
+  <visibility-presets/>
+  <transformContext/>
+  <Annotations/>
+  <Layouts/>
+</qgis>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)http://bl.ocks.org/zanarmstrong/ddff7cd0b1220bc68a58#index.html -->
+<html class="gr__bl_ocks_org"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=1000">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@mbostock">
+<meta property="og:url" content="http://bl.ocks.org/zanarmstrong/ddff7cd0b1220bc68a58">
+<meta property="og:title" content="slider: days of the year">
+<meta property="og:description" content="zan’s Block ddff7cd0b1220bc68a58">
+<meta property="og:image" content="http://bl.ocks.org/zanarmstrong/raw/ddff7cd0b1220bc68a58/168311214cc5f25a321d8fa9792c87880abae9f0/thumbnail.png">
+<title>slider: days of the year - bl.ocks.org</title>
+<link rel="icon" href="http://bl.ocks.org/favicon.png">
+<link rel="canonical" href="http://bl.ocks.org/zanarmstrong/ddff7cd0b1220bc68a58">
+<style>
+
+@import url("/style.css");
+
+</style>
+
+
+</head><body data-gr-c-s-loaded="true"><header>
+  <div class="column">
+    <div class="navigation">
+      <a href="http://bl.ocks.org/">Popular</a>
+      / <a href="http://bl.ocks.org/-/about">About</a>
+    </div>
+    <a class="user" href="http://bl.ocks.org/zanarmstrong"><img class="avatar" src="./Test_files/7397271" width="30" height="30">zan</a>’s
+    Block <a class="gist gist-id self" title="View Gist on GitHub." href="https://gist.github.com/zanarmstrong/ddff7cd0b1220bc68a58">ddff7cd0b1220bc68a58</a>    <div class="date">Updated April 13, 2018</div>
+  </div>
+</header>
+
+<div class="column">
+  <h1>slider: days of the year</h1>
+  <div class="index">
+    <iframe sandbox="allow-popups allow-scripts allow-forms allow-same-origin" src="./Test_files/saved_resource.html" marginwidth="0" marginheight="0" style="height:500px;" scrolling="no"></iframe>
+  </div>
+  <div class="index-pop">
+    <a target="_blank" title="Open Block ddff7cd0b1220bc68a58 a new window." href="http://bl.ocks.org/zanarmstrong/raw/ddff7cd0b1220bc68a58">Open<svg height="16" width="12"><path d="M11 10h1v3c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V3c0-0.55 0.45-1 1-1h3v1H1v10h10V10zM6 2l2.25 2.25-3.25 3.25 1.5 1.5 3.25-3.25 2.25 2.25V2H6z"></path></svg></a>
+  </div>
+  <div class="gist-readme" data-key=""></div>
+  <div class="gist-sources">
+    <div class="gist-source" data-key="index.html">
+      <h2>index.html<a name="index.html" class="anchor" href="http://bl.ocks.org/zanarmstrong/ddff7cd0b1220bc68a58#index.html">#</a></h2>
+      <pre><code class="html hljs xml"><span class="comment">&lt;!-- Bostock's slider brush: http://bl.ocks.org/mbostock/6452972--&gt;</span>
+<span class="meta">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">'http://fonts.googleapis.com/css?family=Raleway'</span> <span class="attr">rel</span>=<span class="string">'stylesheet'</span> <span class="attr">type</span>=<span class="string">'text/css'</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"slider.css"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Adapted from Bostock's <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://bl.ocks.org/mbostock/6452972"</span>&gt;</span>slider example<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://d3js.org/d3.v3.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"slider.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span></code></pre>
+    </div>
+    <div class="gist-source" data-key="slider.css">
+      <h2>slider.css<a name="slider.css" class="anchor" href="http://bl.ocks.org/zanarmstrong/ddff7cd0b1220bc68a58#slider.css">#</a></h2>
+      <pre><code class="css hljs"><span class="selector-tag">body</span> {
+  <span class="attribute">background-color</span>: <span class="number">#393939</span>;
+  <span class="attribute">font-size</span>: <span class="number">14px</span>;
+  <span class="attribute">font-family</span>: <span class="string">'Raleway'</span>, sans-serif;
+}
+
+<span class="selector-tag">p</span> {
+  <span class="attribute">color</span>: white;
+  <span class="attribute">margin</span>: <span class="number">50px</span>;
+}
+
+<span class="selector-tag">a</span> {
+  <span class="attribute">color</span>: <span class="number">#4FDEF2</span>;
+}
+
+<span class="selector-class">.axis</span> {
+  <span class="attribute">fill</span>: gray;
+  <span class="attribute">-webkit-user-select</span>: none;
+  <span class="attribute">-moz-user-select</span>: none;
+  <span class="attribute">user-select</span>: none;
+}
+
+<span class="selector-class">.axis</span> <span class="selector-class">.halo</span> {
+  <span class="attribute">stroke</span>: gray;
+  <span class="attribute">stroke-width</span>: <span class="number">4px</span>;
+  <span class="attribute">stroke-linecap</span>: round;
+}
+
+<span class="selector-class">.slider</span> <span class="selector-class">.handle</span> <span class="selector-tag">path</span> {
+  <span class="attribute">stroke</span>: white;
+  <span class="attribute">stroke-width</span>: <span class="number">3px</span>;
+  <span class="attribute">stroke-linecap</span>: round;
+  <span class="attribute">pointer-events</span>: none;
+}
+
+<span class="selector-class">.slider</span> <span class="selector-class">.handle</span> <span class="selector-tag">text</span> {
+  <span class="attribute">fill</span>: white;
+  <span class="attribute">text-align</span>: center;
+  <span class="attribute">font-size</span>: <span class="number">18px</span>;
+}</code></pre>
+    </div>
+    <div class="gist-source" data-key="slider.js">
+      <h2>slider.js<a name="slider.js" class="anchor" href="http://bl.ocks.org/zanarmstrong/ddff7cd0b1220bc68a58#slider.js">#</a></h2>
+      <pre><code class="javascript hljs">formatDate = d3.time.format(<span class="string">"%b %d"</span>);
+
+<span class="comment">// parameters</span>
+<span class="keyword">var</span> margin = {
+    <span class="attr">top</span>: <span class="number">50</span>,
+    <span class="attr">right</span>: <span class="number">50</span>,
+    <span class="attr">bottom</span>: <span class="number">50</span>,
+    <span class="attr">left</span>: <span class="number">50</span>
+  },
+  width = <span class="number">960</span> - margin.left - margin.right,
+  height = <span class="number">300</span> - margin.bottom - margin.top;
+
+
+<span class="comment">// scale function</span>
+<span class="keyword">var</span> timeScale = d3.time.scale()
+  .domain([<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2012-01-02'</span>), <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2013-01-01'</span>)])
+  .range([<span class="number">0</span>, width])
+  .clamp(<span class="literal">true</span>);
+
+
+<span class="comment">// initial value</span>
+<span class="keyword">var</span> startValue = timeScale(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2012-03-20'</span>));
+startingValue = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2012-03-20'</span>);
+
+<span class="comment">//////////</span>
+
+<span class="comment">// defines brush</span>
+<span class="keyword">var</span> brush = d3.svg.brush()
+  .x(timeScale)
+  .extent([startingValue, startingValue])
+  .on(<span class="string">"brush"</span>, brushed);
+
+<span class="keyword">var</span> svg = d3.select(<span class="string">"body"</span>).append(<span class="string">"svg"</span>)
+  .attr(<span class="string">"width"</span>, width + margin.left + margin.right)
+  .attr(<span class="string">"height"</span>, height + margin.top + margin.bottom)
+  .append(<span class="string">"g"</span>)
+  <span class="comment">// classic transform to position g</span>
+  .attr(<span class="string">"transform"</span>, <span class="string">"translate("</span> + margin.left + <span class="string">","</span> + margin.top + <span class="string">")"</span>);
+
+svg.append(<span class="string">"g"</span>)
+  .attr(<span class="string">"class"</span>, <span class="string">"x axis"</span>)
+<span class="comment">// put in middle of screen</span>
+.attr(<span class="string">"transform"</span>, <span class="string">"translate(0,"</span> + height / <span class="number">2</span> + <span class="string">")"</span>)
+<span class="comment">// inroduce axis</span>
+.call(d3.svg.axis()
+  .scale(timeScale)
+  .orient(<span class="string">"bottom"</span>)
+  .tickFormat(<span class="function"><span class="keyword">function</span>(<span class="params">d</span>) </span>{
+    <span class="keyword">return</span> formatDate(d);
+  })
+  .tickSize(<span class="number">0</span>)
+  .tickPadding(<span class="number">12</span>)
+  .tickValues([timeScale.domain()[<span class="number">0</span>], timeScale.domain()[<span class="number">1</span>]]))
+  .select(<span class="string">".domain"</span>)
+  .select(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="built_in">console</span>.log(<span class="keyword">this</span>);
+    <span class="keyword">return</span> <span class="keyword">this</span>.parentNode.appendChild(<span class="keyword">this</span>.cloneNode(<span class="literal">true</span>));
+  })
+  .attr(<span class="string">"class"</span>, <span class="string">"halo"</span>);
+
+<span class="keyword">var</span> slider = svg.append(<span class="string">"g"</span>)
+  .attr(<span class="string">"class"</span>, <span class="string">"slider"</span>)
+  .call(brush);
+
+slider.selectAll(<span class="string">".extent,.resize"</span>)
+  .remove();
+
+slider.select(<span class="string">".background"</span>)
+  .attr(<span class="string">"height"</span>, height);
+
+<span class="keyword">var</span> handle = slider.append(<span class="string">"g"</span>)
+  .attr(<span class="string">"class"</span>, <span class="string">"handle"</span>)
+
+handle.append(<span class="string">"path"</span>)
+  .attr(<span class="string">"transform"</span>, <span class="string">"translate(0,"</span> + height / <span class="number">2</span> + <span class="string">")"</span>)
+  .attr(<span class="string">"d"</span>, <span class="string">"M 0 -20 V 20"</span>)
+
+handle.append(<span class="string">'text'</span>)
+  .text(startingValue)
+  .attr(<span class="string">"transform"</span>, <span class="string">"translate("</span> + (<span class="number">-18</span>) + <span class="string">" ,"</span> + (height / <span class="number">2</span> - <span class="number">25</span>) + <span class="string">")"</span>);
+
+slider
+  .call(brush.event)
+
+<span class="function"><span class="keyword">function</span> <span class="title">brushed</span>(<span class="params"></span>) </span>{
+  <span class="keyword">var</span> value = brush.extent()[<span class="number">0</span>];
+
+  <span class="keyword">if</span> (d3.event.sourceEvent) { <span class="comment">// not a programmatic event</span>
+    value = timeScale.invert(d3.mouse(<span class="keyword">this</span>)[<span class="number">0</span>]);
+    brush.extent([value, value]);
+  }
+
+  handle.attr(<span class="string">"transform"</span>, <span class="string">"translate("</span> + timeScale(value) + <span class="string">",0)"</span>);
+  handle.select(<span class="string">'text'</span>).text(formatDate(value));
+}</code></pre>
+    </div>
+  </div>
+  <div class="gist-license">
+    <h2>LICENSE<a name="license" class="anchor" href="http://bl.ocks.org/zanarmstrong/ddff7cd0b1220bc68a58#license">#</a></h2>
+    This block appears to have <a target="_blank" href="http://choosealicense.com/no-license/">no license</a>. Please contact <a target="_blank" href="https://github.com/zanarmstrong">the author</a> to request a license.
+  </div>
+</div>
+
+<script src="./Test_files/d3-array.min.js" integrity="sha384-c+16cUIc0b/tqEZ9mRvDfI/r1Dg1Yq3JpWgZFW4mjN2QU7XXFWVB90PDFlV8SIAm" crossorigin="anonymous"></script>
+<script src="./Test_files/d3-collection.min.js" integrity="sha384-H/Didu3qLpyrVmUqlvWapaxyhCzc+anaMa9uw+CHWHu+GNfClr91w8QgiLFIp7/V" crossorigin="anonymous"></script>
+<script src="./Test_files/d3-dispatch.min.js" integrity="sha384-dGRK/lIqGrmmAoVA9K4pwKI4YL4BxIpaGa1dwU6lcRdpp5OJR6FoMZqxqzvCzFBS" crossorigin="anonymous"></script>
+<script src="./Test_files/d3-request.min.js" integrity="sha384-xsZEl8WRzIEBs+gkv/88ttcv7hmGnFJX8t8k6V+fZcrG2y5o1SXsCRLzl2S9HkFU" crossorigin="anonymous"></script>
+<script src="./Test_files/d3-selection.min.js" integrity="sha384-AOxWgfcHKw/K6u7UX8IJ4vy418+zXnA6wB6P4/sobPFG0mM34UlLPHELGvI+aEX5" crossorigin="anonymous"></script>
+<script src="./Test_files/showdown.min.js" integrity="sha384-Mcx6WhltjdlkIwTWetAJIBNgD0lLtUcl//A7Ksp/vmVZVD2rzQ949wtmoehrDJd/" crossorigin="anonymous"></script>
+<script src="./Test_files/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+<script>
+
+hljs.configure({classPrefix: ""});
+showdown.setFlavor("github");
+
+var gist = {"public":true,"protocol":"http","sha":"168311214cc5f25a321d8fa9792c87880abae9f0","files":{"index.html":{"language":"HTML","type":"text/html","filename":"index.html","size":464,"sha":"8f4407f30a956040e82e3941a0752c96cdf6d631"},"slider.css":{"language":"CSS","type":"text/css","filename":"slider.css","size":533,"sha":"e400dfcc37feda25f01837ee2654c4660efe0ac6"},"slider.js":{"language":"JavaScript","type":"application/javascript","filename":"slider.js","size":2236,"sha":"38645a1b4d3f856ed635f1a1761aece3cd7ee098"},"thumbnail.png":{"language":null,"type":"image/png","filename":"thumbnail.png","size":4515,"sha":"299032dcf0c659f3f3aec98ac586e824b5b0ba3a"}},"created_at":"2014-09-19T20:49:23Z","updated_at":"2018-04-13T11:47:12Z","description":"slider: days of the year","owner":{"login":"zanarmstrong"},"id":"ddff7cd0b1220bc68a58"};
+
+var files = d3.values(gist.files);
+
+d3.select(".gist-readme")
+  .data(files, function(d) { return d ? d.filename : this.getAttribute("data-key"); })
+    .each(function(d) {
+      var readme = d3.select(this);
+      d3.text("/zanarmstrong/raw/ddff7cd0b1220bc68a58/168311214cc5f25a321d8fa9792c87880abae9f0/" + d.filename, function(error, content) {
+        if (error) content = "Sorry, an error occurred.";
+        readme.html(new showdown.Converter().makeHtml(content));
+        readme.selectAll("code").each(function() { hljs.highlightBlock(this); });
+      });
+    });
+
+d3.selectAll(".gist-source")
+  .data(files, function(d) { return d ? d.filename : this.getAttribute("data-key"); })
+  .select("code")
+    .attr("class", function(d) { return d.language && (d.language === "JSON" ? "javascript" : d.language.toLowerCase()); })
+    .each(function(d) {
+      var code = d3.select(this);
+      d3.text("/zanarmstrong/raw/ddff7cd0b1220bc68a58/168311214cc5f25a321d8fa9792c87880abae9f0/" + (d.filename === "index.html" ? "" : d.filename), function(error, content) {
+        if (error) content = "Sorry, an error occurred.";
+        code.text(content);
+        hljs.highlightBlock(code.node());
+      });
+    });
+
+</script>
+
+<script>
+
+GoogleAnalyticsObject = "ga", ga = function() { ga.q.push(arguments); }, ga.q = [], ga.l = +new Date;
+ga("create", "UA-48272912-1", "auto");
+ga("send", "pageview");
+
+</script>
+<script async="" src="./Test_files/analytics.js"></script>
+</body></html>

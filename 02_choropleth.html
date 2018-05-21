@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: Loading GeoJSON data and generating SVG paths</title>
+		<script type="text/javascript" src="d3.js"></script>
+        
+		<style>
+  			body {
+   				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  				margin: auto;
+   				padding-top: 50px;
+   				position: relative;
+   				width: 1000px;
+ 			}
+
+		</style>
+	</head>
+	<body>
+		<h2>Bushfire Hotspots in Australia</h2>
+        
+        
+		<script type="text/javascript">
+
+			//Width and height
+			var w = 1000;
+			var h = 750;
+			//var names = [];
+			var areas = [];
+
+			//Define path generator, using the geoMercator projection
+
+			var projection = d3.geoMercator()
+				 		 .center([134,-25])
+				 		 .scale(900)
+				 		 .translate([w/2,h/2]); 
+
+			var path = d3.geoPath()
+				 		 .projection(projection);
+
+			//Define quantize scale to sort data values into buckets of color
+			var color = d3.scaleQuantize()
+								.range(["rgb(0,0,0)",
+										"rgb(50,50,50)",
+										"rgb(75,75,75)",
+										"rgb(105,105,105)",
+										"rgb(128,128,128)",
+										"rgb(140,140,140)",
+										"rgb(169,169,169)",
+										"rgb(192,192,192)",
+										"rgb(211,211,211)",
+										"rgb(220,220,220)",
+										"rgb(245,245,245)",
+										"rgb(255,255,255)"]);
+
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+			//Load in GeoJSON data
+            d3.json("SA2_2016_AUST.json").then(function(data) {
+				
+				
+
+				for(var i=0;i<data.features.length; i++) {
+					//var n = data.features[i].properties.SA2_NAME16; 
+					var a = data.features[i].properties.AREASQKM16;
+					//names.push(n);
+					areas.push(a);
+				}
+
+				//Set input domain for color scale
+				color.domain([
+					d3.min(areas), 
+					d3.max(areas)
+				]);
+
+				//Bind data and create one path per GeoJSON feature
+				svg.selectAll("path")
+				   .data(data.features)
+				   .enter()
+				   .append("path")
+				   .attr("d", path)
+				   .style("fill", function(d){
+				   		var value = d.properties.AREASQKM16; 
+				   		//return color(value);
+                        return "rgb(75,75,75)"
+				   })
+				   .style("stroke", "rgba(128,128,128,0.5)")
+				   .style("stroke-width", "1");
+		
+			});
+            
+              var data3 = d3.range(0, 10).map(function (d) { return new Date(1995 + d, 10, 3); });
+
+              var slider3 = d3.slider()
+                .min(d3.min(data3))
+                .max(d3.max(data3))
+                .step(1000 * 60 * 60 * 24 * 365)
+                .width(400)
+                .tickFormat(d3.timeFormat('%Y'))
+                .tickValues(data3)
+                .on('onchange', val => {
+                  d3.select("p#value3").text(d3.timeFormat('%Y')(val));
+                });
+
+              var g = d3.select("div#slider3").append("svg")
+                .attr("width", 500)
+                .attr("height", 100)
+                .append("g")
+                .attr("transform", "translate(30,30)");
+
+              g.call(slider3);
+
+              d3.select("p#value3").text(d3.timeFormat('%Y')(slider3.value()));
+              d3.select("a#setValue3").on("click", () => slider3.value(new Date(1997, 11, 17)));
+
+            /*
+            var x = d3.scaleLinear()
+                .domain([0, 180])
+                .range([0, w])
+                .clamp(true);
+
+            var slider = svg.append("g")
+                .attr("class", "slider")
+
+            slider.append("line")
+                .attr("class", "track")
+                .attr("x1", x.range()[0])
+                .attr("x2", x.range()[1])
+              .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+                .attr("class", "track-inset")
+              .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+                .attr("class", "track-overlay")
+                .call(d3.drag()
+                    .on("start.interrupt", function() { slider.interrupt(); })
+                    .on("start drag", function() { hue(x.invert(d3.event.x)); }));
+
+            slider.insert("g", ".track-overlay")
+                .attr("class", "ticks")
+                .attr("transform", "translate(0," + 18 + ")")
+              .selectAll("text")
+              .data(x.ticks(10))
+              .enter().append("text")
+                .attr("x", x)
+                .attr("text-anchor", "middle")
+                .text(function(d) { return d + "°"; });
+
+            var handle = slider.insert("circle", ".track-overlay")
+                .attr("class", "handle")
+                .attr("r", 9);
+
+            slider.transition() // Gratuitous intro!
+                .duration(750)
+                .tween("hue", function() {
+                  var i = d3.interpolate(0, 70);
+                  return function(t) { hue(i(t)); };
+                }); */
+            
+			
+		</script>
+	</body>
+</html>

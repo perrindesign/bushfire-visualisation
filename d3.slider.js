@@ -351,6 +351,7 @@ return function module() {
   };
 
   // Return the type of an object
+      
   function toType(v) {
     return ({}).toString.call(v).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
   };
@@ -425,3 +426,5 @@ return function module() {
 
 }
 }));
+
+

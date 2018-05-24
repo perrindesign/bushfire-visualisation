@@ -6,7 +6,7 @@ var formatDate = d3.timeFormat("%b %Y");
 var searchDate = d3.timeFormat("%Y-%m");
 
 var startDate = new Date("2001-01-01"),
-    endDate = new Date("2015-12-01");
+    endDate = new Date("2017-12-01");
 
 var margin = { top: 0, right: 50, bottom: 0, left: 50 },
     width = 960 - margin.left - margin.right,
@@ -165,10 +165,10 @@ function renderSpots(date) {
                 return projection([d.longitude, d.latitude])[1];
             })
             .attr("r", 5)
-            .style("fill", "yellow")
+            .style("fill", "orange")
             .style("stroke", "gray")
-            .style("stroke-width", 0.25)
-            .style("opacity", 0.50)
+            .style("stroke-width", .1)
+            .style("opacity", 0.25)
             .append("title")			//Simple tooltip
             .text(function (d) {
                 return d.acq_date + ": Time " + d.acq_time;

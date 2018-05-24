@@ -148,7 +148,7 @@ d3.json("australia.json").then(function (data) {
   
 function renderSpots(date) {
     //Load in hotspots data
-    d3.csv("test.csv").then(function (data) {
+    d3.csv("data" + date + ".csv").then(function (data) {
 
         //dataset = data;
         svg.selectAll("circle")

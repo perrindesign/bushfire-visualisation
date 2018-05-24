@@ -148,14 +148,14 @@ d3.json("australia.json").then(function (data) {
   
 function renderSpots(date) {
     //Load in hotspots data
-    d3.csv("data" + date + ".csv").then(function (data) {
+    d3.csv("data/" + date + ".csv").then(function (data) {
 
         //dataset = data;
         svg.selectAll("circle")
             .remove();
 
         svg.selectAll("circle")
-            .data(data.filter(function(d){return reformatDate(d.acq_date) == date;}))
+            .data(data)
             .enter()
             .append("circle")
             .attr("cx", function (d) {
@@ -168,7 +168,7 @@ function renderSpots(date) {
             .style("fill", "yellow")
             .style("stroke", "gray")
             .style("stroke-width", 0.25)
-            .style("opacity", 0.75)
+            .style("opacity", 0.50)
             .append("title")			//Simple tooltip
             .text(function (d) {
                 return d.acq_date + ": Time " + d.acq_time;

@@ -181,3 +181,32 @@ function reformatDate(d) {
     var newD = new Date(d)
     return newD.toISOString().substring(0, 7);
 }
+
+var data = [
+    [
+      {"area": "Central ", "value": 80},
+      {"area": "Kirkdale", "value": 40},
+      {"area": "Kensington ", "value": 40},
+      {"area": "Everton ", "value": 90},
+      {"area": "Picton ", "value": 60},
+      {"area": "Riverside ", "value": 80}
+  	]
+  ]
+
+
+// Config for the Radar chart
+var config = {
+  w: width,
+  h: height,
+  maxValue: 100,
+  levels: 5,
+  ExtraWidthX: 300
+}
+
+RadarChart.draw("#chart", data, config);
+
+var svg = d3.select('#radar').selectAll('svg')
+  .append('svg')
+  .attr("width", 1000)
+  .attr("height", 1000);
+

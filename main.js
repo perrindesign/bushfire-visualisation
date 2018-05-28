@@ -68,7 +68,7 @@ function hue(h) {
     renderSpots(searchDate(h));
 }
 
-//Map JS
+//Map JS 
 
 //Width and height
 var w = 1000;
@@ -164,11 +164,11 @@ function renderSpots(date) {
             .attr("cy", function (d) {
                 return projection([d.longitude, d.latitude])[1];
             })
-            .attr("r", 5)
+            .attr("r", 3)
             .style("fill", "orange")
             .style("stroke", "gray")
             .style("stroke-width", .1)
-            .style("opacity", 0.25)
+            .style("opacity", 0.5)
             .append("title")			//Simple tooltip
             .text(function (d) {
                 return d.acq_date + ": Time " + d.acq_time;

@@ -13,9 +13,9 @@ var width = 1500,
 
 var formatPercent = d3.format(".1%");
 
-var color = d3.scaleQuantize()
-    .domain([-0.05, 0.05])
-    .range(["#a50026", "#d73027", "#f46d43", "#fdae61", "#fee08b", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
+var color = d3.scaleLinear()
+    .domain([0, 300])
+    .range(["#FFFDD4", "#FF0000"]);
 
 var svg = d3.select("body")
   .selectAll("svg")
@@ -53,12 +53,12 @@ var rect = svg.append("g")
   .enter().append("path")
     .attr("d", pathMonth); */
 
-d3.csv("dji.csv", function(error, csv) {
+d3.csv("dailyResultsFormatted.csv", function(error, csv) {
   if (error) throw error;
 
   var data = d3.nest()
       .key(function(d) { return d.Date; })
-      .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
+      .rollup(function(d) { return d[0].VIC; })
     .object(csv);
 
   rect.filter(function(d) { return d in data; })

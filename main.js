@@ -12,7 +12,7 @@ var margin = { top: 0, right: 50, bottom: 0, left: 50 },
     width = 960 - margin.left - margin.right,
     height = 100 - margin.top - margin.bottom;
 
-var svg = d3.select("#slider")
+var svgSlider = d3.select("#slider")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height);
@@ -22,7 +22,7 @@ var x = d3.scaleTime()
     .range([0, width])
     .clamp(true);
 
-var slider = svg.append("g")
+var slider = svgSlider.append("g")
     .attr("class", "slider")
     .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
 
@@ -104,7 +104,7 @@ var color = d3.scaleQuantize()
 var formatAsThousands = d3.format(",");  //e.g. converts 123456 to "123,456"
 
 //Create SVG element
-var svg = d3.select("body")
+var svgMap = d3.select("#map")
     .append("svg")
     .attr("width", w)
     .attr("height", h);
@@ -128,7 +128,7 @@ d3.json("australia.json").then(function (data) {
     ]);
 
     //Bind data and create one path per GeoJSON feature
-    svg.selectAll("path")
+    svgMap.selectAll("path")
         .data(data.features)
         .enter()
         .append("path")
@@ -151,10 +151,10 @@ function renderSpots(date) {
     d3.csv("data/" + date + ".csv").then(function (data) {
 
         //dataset = data;
-        svg.selectAll("circle")
+        svgMap.selectAll("circle")
             .remove();
 
-        svg.selectAll("circle")
+        svgMap.selectAll("circle")
             .data(data)
             .enter()
             .append("circle")
@@ -177,78 +177,67 @@ function renderSpots(date) {
     });
 }
 
-function reformatDate(d) {
-    var newD = new Date(d)
-    return newD.toISOString().substring(0, 7);
+function daysInYear(date){
+    return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000;
 }
 
-var width = 960,
-    height = 50,
+var width = 1500,
+    height = 40,
     cellSize = 5;
 
 var formatPercent = d3.format(".1%");
 
-var color = d3.scaleQuantize()
-    .domain([-0.05, 0.05])
-    .range(["#a50026", "#d73027", "#f46d43", "#fdae61", "#fee08b", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
+var color = d3.scaleLinear()
+    .domain([0, 3000])
+    .range(["#FFFDD4", "#FF0000"]);
 
-var svg = d3.select("body")
+var svgCal = d3.select("#calendar")
   .selectAll("svg")
   .data(d3.range(2001, 2016))
   .enter().append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g")
-    .attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + (height - cellSize * 7 - 1) + ")");
+    .attr("transform", "translate(" + ((width - cellSize * 53) / 4) + "," + (height - cellSize * 7 - 1) + ")");
 
-svg.append("text")
-    .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
+svgCal.append("text")
+    .attr("transform", "translate(-20," + cellSize * 3 + ")")
     .attr("font-family", "sans-serif")
     .attr("font-size", 10)
     .attr("text-anchor", "middle")
     .text(function(d) { return d; });
 
-var rect = svg.append("g")
+var rect = svgCal.append("g")
     .attr("fill", "none")
-    .attr("stroke", "#ccc")
-  .selectAll("rect")
-  .data(function(d) { return d3.timeDays(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
-  .enter().append("rect")
-    .attr("width", cellSize)
-    .attr("height", cellSize)
-    .attr("x", function(d) { return d3.timeWeek.count(d3.timeYear(d), d) * cellSize; })
-    .attr("y", function(d) { return d.getDay() * cellSize; })
+    //.attr("stroke", "#ccc")
+    .selectAll("rect")
+    .data(function(d) { return d3.timeDays(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
+    .enter().append("rect")
+    .attr("width", cellSize-3)
+    .attr("height", cellSize+5)
+    .attr("x", function(d) { return daysInYear(d) * (cellSize-3); })
+    .attr("y", function(d) { return 6; })
     .datum(d3.timeFormat("%Y-%m-%d"));
 
-svg.append("g")
-    .attr("fill", "none")
-    .attr("stroke", "#000")
-  .selectAll("path")
-  .data(function(d) { return d3.timeMonths(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
-  .enter().append("path")
-    .attr("d", pathMonth);
+function renderCalendar(selection) {
+    
+    d3.csv("dailyResultsFormatted.csv").then(function(csv) {
 
-d3.csv("dji.csv", function(error, csv) {
-  if (error) throw error;
+        var data = d3.nest()
+            .key(function(d) { return d.Date; })
+            .rollup(function(d) { return d[0][selection]; })
+            .object(csv);
+        
+        rect.filter(function(d) { return d in data; })
+            .attr("fill", function(d) { return color(data[d]); })
+            .append("title")
+            .text(function(d) { return d + ": " + data[d] + " Hotspots"; });
+        });
+}
 
-  var data = d3.nest()
-      .key(function(d) { return d.Date; })
-      .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
-    .object(csv);
+renderCalendar('All')
+renderCalendar('NSW')
 
-  rect.filter(function(d) { return d in data; })
-      .attr("fill", function(d) { return color(data[d]); })
-    .append("title")
-      .text(function(d) { return d + ": " + formatPercent(data[d]); });
-});
-
-function pathMonth(t0) {
-  var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
-      d0 = t0.getDay(), w0 = d3.timeWeek.count(d3.timeYear(t0), t0),
-      d1 = t1.getDay(), w1 = d3.timeWeek.count(d3.timeYear(t1), t1);
-  return "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
-      + "H" + w0 * cellSize + "V" + 7 * cellSize
-      + "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
-      + "H" + (w1 + 1) * cellSize + "V" + 0
-      + "H" + (w0 + 1) * cellSize + "Z";
+function select(selection) {
+    renderCalendar(selection);
 }

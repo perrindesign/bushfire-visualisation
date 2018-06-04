@@ -185,41 +185,44 @@ var width = 1500,
     height = 40,
     cellSize = 5;
 
-var formatPercent = d3.format(".1%");
-
-var color = d3.scaleLinear()
-    .domain([0, 3000])
-    .range(["#FFFDD4", "#FF0000"]);
-
-var svgCal = d3.select("#calendar")
-  .selectAll("svg")
-  .data(d3.range(2001, 2016))
-  .enter().append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + ((width - cellSize * 53) / 4) + "," + (height - cellSize * 7 - 1) + ")");
-
-svgCal.append("text")
-    .attr("transform", "translate(-20," + cellSize * 3 + ")")
-    .attr("font-family", "sans-serif")
-    .attr("font-size", 10)
-    .attr("text-anchor", "middle")
-    .text(function(d) { return d; });
-
-var rect = svgCal.append("g")
-    .attr("fill", "none")
-    //.attr("stroke", "#ccc")
-    .selectAll("rect")
-    .data(function(d) { return d3.timeDays(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
-    .enter().append("rect")
-    .attr("width", cellSize-3)
-    .attr("height", cellSize+5)
-    .attr("x", function(d) { return daysInYear(d) * (cellSize-3); })
-    .attr("y", function(d) { return 6; })
-    .datum(d3.timeFormat("%Y-%m-%d"));
+//var formatPercent = d3.format(".1%");
 
 function renderCalendar(selection) {
+    var color = d3.scaleLinear()
+        .domain([0, 3000])
+        .range(["#FFFDD4", "#FF0000"]);
+
+    var svgCal = d3.select('#calendar').selectAll("svg").remove();
+    
+    svgCal = d3.select("#calendar")
+    .selectAll("svg")
+    .data(d3.range(2001, 2016))
+    .enter().append("svg")
+        .attr("width", width)
+        .attr("height", height)
+    .append("g")
+        .attr("transform", "translate(" + ((width - cellSize * 53) / 4) + "," + (height - cellSize * 7 - 1) + ")");
+
+    svgCal.append("text")
+        .attr("transform", "translate(-20," + cellSize * 3 + ")")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", 10)
+        .attr("text-anchor", "middle")
+        .text(function(d) { return d; });
+
+    
+
+    var rect = svgCal.append("g")
+        .attr("fill", "none")
+        //.attr("stroke", "#ccc")
+        .selectAll("rect")
+        .data(function(d) { return d3.timeDays(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
+        .enter().append("rect")
+        .attr("width", cellSize-3)
+        .attr("height", cellSize+5)
+        .attr("x", function(d) { return daysInYear(d) * (cellSize-3); })
+        .attr("y", function(d) { return 6; })
+        .datum(d3.timeFormat("%Y-%m-%d"));
     
     d3.csv("dailyResultsFormatted.csv").then(function(csv) {
 
@@ -236,7 +239,7 @@ function renderCalendar(selection) {
 }
 
 renderCalendar('All')
-renderCalendar('NSW')
+//renderCalendar('NSW')
 
 function select(selection) {
     renderCalendar(selection);

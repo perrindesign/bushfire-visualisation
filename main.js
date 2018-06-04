@@ -26,7 +26,7 @@ var svgSlider = d3.select("#slider")
 
 var x = d3.scaleTime()
     .domain([startDate, endDate])
-    .range([-1, width])
+    .range([0, width])
     .clamp(true);
 
 var slider = svgSlider.append("g")
@@ -175,7 +175,7 @@ d3.json("australia.json").then(function (data) {
           button.text("Play");
         } else {
           moving = true;
-          timer = setInterval(step, 200);
+          timer = setInterval(step, 1000);
           button.text("Pause");
         }
         console.log("Slider moving: " + moving);
@@ -189,6 +189,13 @@ d3.json("australia.json").then(function (data) {
 function renderSpots(date) {
     //Load in hotspots data
     d3.csv("data/" + date + ".csv").then(function (data) {
+        var t = d3.transition()
+            .duration(300)
+            .ease(d3.easeCubic);
+        
+        
+        svgMap.selectAll("circle").transition(t)
+            .style("opacity",0);
 
         //dataset = data;
         svgMap.selectAll("circle")
@@ -208,12 +215,14 @@ function renderSpots(date) {
             .style("fill", "orange")
             .style("stroke", "gray")
             .style("stroke-width", .1)
-            .style("opacity", 0.5)
+            .style("opacity", 0)
             .append("title")			//Simple tooltip
             .text(function (d) {
                 return "Location: " + d.longitude + ", " + d.latitude;
             });
 
+        svgMap.selectAll("circle").transition(t)
+            .style("opacity",0.5);
     });
 }
 

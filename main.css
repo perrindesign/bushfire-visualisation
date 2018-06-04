@@ -103,3 +103,41 @@ p {
     position: absolute;
     margin-left: 40px;
   }
+
+svgParCoor {
+    font-family: "avenir next", Arial, sans-serif;
+    font-size: 12px;
+    color: #696969;
+}
+
+.background path {
+  fill: none;
+  stroke: #ddd;
+  shape-rendering: crispEdges;
+}
+
+.foreground path {
+  fill: none;
+  stroke: #ffaf81;
+}
+
+.brush .extent {
+  fill-opacity: .3;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  fill: black;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  cursor: move;
+  font-family: "avenir next", Arial, sans-serif;
+  font-size: 12px;
+}

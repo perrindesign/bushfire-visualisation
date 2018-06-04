@@ -1,4 +1,8 @@
-//Slider JS
+//
+//
+//Slider 
+//
+//
 
 //Formatting the dates
 var formatDateIntoYear = d3.timeFormat("%Y");
@@ -92,7 +96,11 @@ function update(h) {
     renderSpots(searchDate(h));
 }
 
-//Map JS 
+//
+//
+//Map 
+//
+//
 
 //Width and height
 var w = 1000;
@@ -222,9 +230,23 @@ function renderSpots(date) {
             });
 
         svgMap.selectAll("circle").transition(t)
-            .style("opacity",0.5);
+            .style("opacity",0.1);
     });
 }
+
+//
+//
+//Parallel Coordinates
+//
+//
+
+
+
+//
+//
+//Calendar
+//
+//
 
 function daysInYear(date){
     return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000;

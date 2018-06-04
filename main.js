@@ -5,14 +5,14 @@ var formatDateIntoYear = d3.timeFormat("%Y");
 var formatDate = d3.timeFormat("%b %Y");
 var searchDate = d3.timeFormat("%Y-%m");
 
-var startDate = new Date("2001-01-01"),
+var startDate = new Date("2000-12-31"),
     endDate = new Date("2016-12-01");
 
 var playButton = d3.select("#play-button");
 
 var margin = { top: 0, right: 50, bottom: 0, left: 50 },
-    width = 960 - margin.left - margin.right,
-    height = 100 - margin.top - margin.bottom;
+    width = 900 - margin.left - margin.right,
+    height = 70 - margin.top - margin.bottom;
 
 var moving = false;
 var currentValue = 0;
@@ -48,11 +48,11 @@ slider.insert("g", ".track-overlay")
     .attr("class", "ticks")
     .attr("transform", "translate(0," + 18 + ")")
     .selectAll("text")
-    .data(x.ticks(10))
+    .data(x.ticks(16))
     .enter()
     .append("text")
     .attr("x", x)
-    .attr("y", 10)
+    .attr("y", -40)
     .attr("text-anchor", "middle")
     .text(function (d) { return formatDateIntoYear(d); });
 
@@ -93,7 +93,7 @@ function update(h) {
 
 //Width and height
 var w = 1000;
-var h = 800;
+var h = 700;
 var areas = [];
 
 //Define path generator, using the geoMercator projection
@@ -208,7 +208,7 @@ function renderSpots(date) {
             .style("opacity", 0.5)
             .append("title")			//Simple tooltip
             .text(function (d) {
-                return d.acq_date + ": Time " + d.acq_time;
+                return "Location: " + d.longitude + ", " + d.latitude;
             });
 
     });
@@ -263,8 +263,8 @@ function renderCalendar(selection) {
         var max = d3.max(csv, function(d) { return parseInt(d[selection]); });
 
         var color = d3.scaleLinear()
-            .domain([0, max])
-            .range(["#FFFDD4", "#FF0000"]);
+            .domain([1, max])
+            .range(["#f2f2f2", "#ff4000"]);
 
         var data = d3.nest()
             .key(function(d) { return d.Date; })

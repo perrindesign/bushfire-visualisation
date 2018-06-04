@@ -62,6 +62,8 @@ p {
 
 #play-button {
     background: #f08630;
+    display:inline-block;
+    margin-right:10px;
     border-radius: 3px;
     border: none;
     color: white;
@@ -70,11 +72,16 @@ p {
     width: 60px;
     cursor: pointer;
     height: 30px;
+    vertical-align: top;
   }
 
   #play-button:hover {
     background-color: #696969;
-  }  
+  }
+
+#slider {
+    display:inline-block;
+}
 
   .control {
     background: #f08630;

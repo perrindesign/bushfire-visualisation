@@ -73,6 +73,7 @@ p {
     cursor: pointer;
     height: 30px;
     vertical-align: top;
+    margin-top: 20px;
   }
 
   #play-button:hover {
@@ -96,4 +97,9 @@ p {
 
   .control:hover {
     background-color: #696969;
+  }
+
+  .stats-group {
+    position: absolute;
+    margin-left: 40px;
   }

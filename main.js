@@ -2,13 +2,14 @@
 
 //Formatting the dates
 var formatDateIntoYear = d3.timeFormat("%Y");
-var formatDate = d3.timeFormat("%b %Y");
+var formatDate = d3.timeFormat("%B %Y");
 var searchDate = d3.timeFormat("%Y-%m");
 
 var startDate = new Date("2000-12-31"),
     endDate = new Date("2016-12-01");
 
 var playButton = d3.select("#play-button");
+var dateStat = d3.select("#date-stat");
 
 var margin = { top: 0, right: 50, bottom: 0, left: 50 },
     width = 900 - margin.left - margin.right,
@@ -25,7 +26,7 @@ var svgSlider = d3.select("#slider")
 
 var x = d3.scaleTime()
     .domain([startDate, endDate])
-    .range([0, width])
+    .range([-1, width])
     .clamp(true);
 
 var slider = svgSlider.append("g")
@@ -56,11 +57,13 @@ slider.insert("g", ".track-overlay")
     .attr("text-anchor", "middle")
     .text(function (d) { return formatDateIntoYear(d); });
 
-var label = slider.append("text")
-    .attr("class", "label")
-    .attr("text-anchor", "middle")
-    .text(formatDate(startDate))
-    .attr("transform", "translate(0," + (-25) + ")")
+//var label = slider.append("text")
+//    .attr("class", "label")
+//    .attr("text-anchor", "middle")
+//    .text(formatDate(startDate))
+//    .attr("transform", "translate(0," + (-25) + ")")
+
+dateStat.text("January 2001");
 
 var handle = slider.insert("circle", ".track-overlay")
     .attr("class", "handle")
@@ -81,10 +84,10 @@ function step() {
 function update(h) {
     // update position and text of label according to slider scale
     handle.attr("cx", x(h));
-    label
-        .attr("x", x(h))
-        .text(formatDate(h));
-
+    //label
+    //    .attr("x", x(h))
+    //    .text(formatDate(h));
+    dateStat.text(formatDate(h));
     // filter data set and redraw plot
     renderSpots(searchDate(h));
 }

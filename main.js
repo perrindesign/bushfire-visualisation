@@ -236,7 +236,7 @@ function renderCalendar(selection) {
         .attr("width", width)
         .attr("height", height)
     .append("g")
-        .attr("transform", "translate(" + ((width - cellSize * 53) / 4) + "," + (height - cellSize * 7 - 1) + ")");
+        .attr("transform", "translate(" + ((width - cellSize * 53) / 8) + "," + (height - cellSize * 7 - 1) + ")");
 
     svgCal.append("text")
         .attr("transform", "translate(-20," + cellSize * 3 + ")")
@@ -260,10 +260,10 @@ function renderCalendar(selection) {
         .datum(d3.timeFormat("%Y-%m-%d"));
     
     d3.csv("dailyResultsFormatted.csv").then(function(csv) {
-        //var max = d3.max(data, function(d) { return d[selection]; });
+        var max = d3.max(csv, function(d) { return parseInt(d[selection]); });
 
         var color = d3.scaleLinear()
-            .domain([0, 2000])
+            .domain([0, max])
             .range(["#FFFDD4", "#FF0000"]);
 
         var data = d3.nest()

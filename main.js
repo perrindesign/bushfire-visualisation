@@ -6,11 +6,17 @@ var formatDate = d3.timeFormat("%b %Y");
 var searchDate = d3.timeFormat("%Y-%m");
 
 var startDate = new Date("2001-01-01"),
-    endDate = new Date("2017-12-01");
+    endDate = new Date("2016-12-01");
+
+var playButton = d3.select("#play-button");
 
 var margin = { top: 0, right: 50, bottom: 0, left: 50 },
     width = 960 - margin.left - margin.right,
     height = 100 - margin.top - margin.bottom;
+
+var moving = false;
+var currentValue = 0;
+var targetValue = width;
 
 var svgSlider = d3.select("#slider")
     .append("svg")
@@ -36,7 +42,7 @@ slider.append("line")
     .attr("class", "track-overlay")
     .call(d3.drag()
         .on("start.interrupt", function () { slider.interrupt(); })
-        .on("start drag", function () { hue(x.invert(d3.event.x)); }));
+        .on("start drag", function () { update(x.invert(d3.event.x)); }));
 
 slider.insert("g", ".track-overlay")
     .attr("class", "ticks")
@@ -60,11 +66,26 @@ var handle = slider.insert("circle", ".track-overlay")
     .attr("class", "handle")
     .attr("r", 9);
 
-function hue(h) {
+function step() {
+    update(x.invert(currentValue));
+    currentValue = currentValue + (targetValue/181);
+    if (currentValue > targetValue) {
+      moving = false;
+      currentValue = 0;
+      clearInterval(timer);
+      playButton.text("Play");
+      // console.log("Slider moving: " + moving);
+    }
+}
+
+function update(h) {
+    // update position and text of label according to slider scale
     handle.attr("cx", x(h));
     label
         .attr("x", x(h))
         .text(formatDate(h));
+
+    // filter data set and redraw plot
     renderSpots(searchDate(h));
 }
 
@@ -140,6 +161,22 @@ d3.json("australia.json").then(function (data) {
         })
         .style("stroke", "rgba(128,128,128,0.5)")
         .style("stroke-width", "1");
+    
+    playButton
+        .on("click", function() {
+        var button = d3.select(this);
+        if (button.text() == "Pause") {
+          moving = false;
+          clearInterval(timer);
+          // timer = 0;
+          button.text("Play");
+        } else {
+          moving = true;
+          timer = setInterval(step, 200);
+          button.text("Pause");
+        }
+        console.log("Slider moving: " + moving);
+    })
 
     renderSpots("2001-01");
     
@@ -188,9 +225,7 @@ var width = 1500,
 //var formatPercent = d3.format(".1%");
 
 function renderCalendar(selection) {
-    var color = d3.scaleLinear()
-        .domain([0, 3000])
-        .range(["#FFFDD4", "#FF0000"]);
+    
 
     var svgCal = d3.select('#calendar').selectAll("svg").remove();
     
@@ -225,6 +260,11 @@ function renderCalendar(selection) {
         .datum(d3.timeFormat("%Y-%m-%d"));
     
     d3.csv("dailyResultsFormatted.csv").then(function(csv) {
+        //var max = d3.max(data, function(d) { return d[selection]; });
+
+        var color = d3.scaleLinear()
+            .domain([0, 2000])
+            .range(["#FFFDD4", "#FF0000"]);
 
         var data = d3.nest()
             .key(function(d) { return d.Date; })

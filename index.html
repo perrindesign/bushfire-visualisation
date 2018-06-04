@@ -10,36 +10,44 @@
 
 
 <body>
-  <h2>Bushfire Hotspots in Australia Test</h2>
+  <h2>Bushfire Hotspots in Australia</h2>
+  <p>Blazes during the past decade have caused some of the worst bushfire devastation seen in Australia, with hundreds of thousands of hectares destroyed, some 180 people killed and thousands of homes and buildings lost. Extreme fire conditions increased the severity and intensity of fires and prompted the creation of a new fire alert level – catastrophic
+    There are many ways a bushfire can start, but for a fire to keep burning it needs fuel, oxygen and heat. Hot, dry and windy conditions and a large amount of dry vegetation can turn a small spark into a destructive blaze that can take weeks to bring under control</p>
   <div id="slider"></div>
+  <div id="vis">
+    <button id="play-button">Play</button>
+  </div>
   <div id="radar"></div>
   <div id="map"></div>
+  <p>Bushfires in Australia can occur all year-round, though the severity and the "bushfire season" varies by region. These seasons are commonly grouped into years such as "2006-07 Australian bushfire season" and typically run from June one year until May the next year.
+
+    In southeast Australia, bushfires tend to be most common and most severe during summer and autumn (December–March), in drought years, and particularly severe in El Niño years. Southeast Australia is fire-prone, and warm and dry conditions intensify the probability of fire. In northern Australia, bushfires usually occur during the dry season (April to September), and fire severity tends to be more associated with seasonal weather patterns. In the southwest, similarly, bushfires occur in the summer dry season and severity is usually related to seasonal growth. Fire frequency in the north is difficult to assess, as the vast majority of fires are caused by human activity, however lightning strikes are as common a cause as human-ignited fires and arson.</p>
   <div class="control-group">
-      <button onclick="select('All')">
+      <button class="control" onclick="select('All')">
           Nationwide
       </button>
-      <button onclick="select('ACT')">
+      <button class="control" onclick="select('ACT')">
           Australian Capital Territory
       </button>
-      <button onclick="select('NSW')">
+      <button class="control" onclick="select('NSW')">
           New South Wales
       </button>
-      <button onclick="select('NRT')">
+      <button class="control" onclick="select('NRT')">
           Northern Territory
       </button>
-      <button onclick="select('QSL')">
+      <button class="control" onclick="select('QSL')">
           Queensland
       </button>
-      <button onclick="select('SA')">
+      <button class="control" onclick="select('SA')">
           South Australia
       </button>
-      <button onclick="select('TAS')">
+      <button class="control" onclick="select('TAS')">
           Tasmania
       </button>
-      <button onclick="select('VIC')">
+      <button class="control" onclick="select('VIC')">
           Victoria
       </button>
-      <button onclick="select('WA')">
+      <button class="control" onclick="select('WA')">
           Western Australia
       </button>
   </div>

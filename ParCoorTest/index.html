@@ -42,7 +42,7 @@ svgParCoor {
 
 </style>
 <body>
-<script src="../d3.js"></script>
+<script src="..//d3.js"></script>
 <script>
 
 var margin = {top: 30, right: 10, bottom: 10, left: 10},
@@ -60,7 +60,7 @@ var line = d3.line(),
     foreground,
     extents;
 
-var svgParCoor = d3.select("body").append("svgParCoor")
+var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -83,7 +83,7 @@ d3.csv("cars.csv").then(function(cars) {
   extents = dimensions.map(function(p) { return [0,0]; });
 
   // Add grey background lines for context.
-  background = svgParCoor.append("g")
+  background = svg.append("g")
       .attr("class", "background")
     .selectAll("path")
       .data(cars)
@@ -91,7 +91,7 @@ d3.csv("cars.csv").then(function(cars) {
       .attr("d", path);
 
   // Add blue foreground lines for focus.
-  foreground = svgParCoor.append("g")
+  foreground = svg.append("g")
       .attr("class", "foreground")
     .selectAll("path")
       .data(cars)
@@ -99,7 +99,7 @@ d3.csv("cars.csv").then(function(cars) {
       .attr("d", path);
 
   // Add a group element for each dimension.
-  var g = svgParCoor.selectAll(".dimension")
+  var g = svg.selectAll(".dimension")
       .data(dimensions)
     .enter().append("g")
       .attr("class", "dimension")
@@ -136,8 +136,7 @@ d3.csv("cars.csv").then(function(cars) {
     .append("text")
       .style("text-anchor", "middle")
       .attr("y", -9) 
-      .text(function(d) { return d; })
-      .attr("font-family", "'avenir next', Arial, sans-serif");
+      .text(function(d) { return d; });
 
   // Add and store a brush for each axis.
   g.append("g")

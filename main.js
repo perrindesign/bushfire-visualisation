@@ -28,7 +28,7 @@ var svgSlider = d3.select("#slider")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height);
 
-var x = d3.scaleTime()
+var xSlide = d3.scaleTime()
     .domain([startDate, endDate])
     .range([0, width])
     .clamp(true);
@@ -39,24 +39,24 @@ var slider = svgSlider.append("g")
 
 slider.append("line")
     .attr("class", "track")
-    .attr("x1", x.range()[0])
-    .attr("x2", x.range()[1])
+    .attr("x1", xSlide.range()[0])
+    .attr("x2", xSlide.range()[1])
     .select(function () { return this.parentNode.appendChild(this.cloneNode(true)); })
     .attr("class", "track-inset")
     .select(function () { return this.parentNode.appendChild(this.cloneNode(true)); })
     .attr("class", "track-overlay")
     .call(d3.drag()
         .on("start.interrupt", function () { slider.interrupt(); })
-        .on("start drag", function () { update(x.invert(d3.event.x)); }));
+        .on("start drag", function () { update(xSlide.invert(d3.event.x)); }));
 
 slider.insert("g", ".track-overlay")
     .attr("class", "ticks")
     .attr("transform", "translate(0," + 18 + ")")
     .selectAll("text")
-    .data(x.ticks(16))
+    .data(xSlide.ticks(16))
     .enter()
     .append("text")
-    .attr("x", x)
+    .attr("x", xSlide)
     .attr("y", -40)
     .attr("text-anchor", "middle")
     .text(function (d) { return formatDateIntoYear(d); });
@@ -74,7 +74,7 @@ var handle = slider.insert("circle", ".track-overlay")
     .attr("r", 9);
 
 function step() {
-    update(x.invert(currentValue));
+    update(xSlide.invert(currentValue));
     currentValue = currentValue + (targetValue/181);
     if (currentValue > targetValue) {
       moving = false;
@@ -91,9 +91,9 @@ function update(h) {
         h = new Date(h.getFullYear(), h.getMonth()+1, 1);
     }
 
-    handle.attr("cx", x(h));
+    handle.attr("cx", xSlide(h));
     //label
-    //    .attr("x", x(h))
+    //    .attr("x", xSlide(h))
     //    .text(formatDate(h));
     renderSpots(searchDate(h));
 
@@ -119,7 +119,7 @@ var projection = d3.geoMercator()
     .scale(800)
     .translate([w / 2, h / 2]);
 
-var path = d3.geoPath()
+var geoPath = d3.geoPath()
     .projection(projection);
 
 //Define quantize scale to sort data values into buckets of color
@@ -169,7 +169,7 @@ d3.json("australia.json").then(function (data) {
         .data(data.features)
         .enter()
         .append("path")
-        .attr("d", path)
+        .attr("d", geoPath)
         .style("fill", function (d) {
             var value = d.properties.AREASQKM16;
             //return color(value);
@@ -191,7 +191,7 @@ d3.json("australia.json").then(function (data) {
           timer = setInterval(step, 2000);
           button.text("Pause");
         }
-        console.log("Slider moving: " + moving);
+        //console.log("Slider moving: " + moving);
     })
 
     renderSpots("2001-01");
@@ -210,7 +210,6 @@ function renderSpots(date) {
         svgMap.selectAll("circle").transition(t)
             .style("opacity",0);
 
-        dataset = data;
         svgMap.selectAll("circle")
             .remove();
 
@@ -243,6 +242,158 @@ function renderSpots(date) {
 //
 //
 
+var margin = {top: 30, right: 10, bottom: 10, left: 10},
+    width = 1200 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+var x = d3.scaleBand().rangeRound([0, width]).padding(1),
+    y = {},
+    dragging = {};
+
+
+var line = d3.line(),
+    background,
+    foreground,
+    extents;
+
+var svgParCoor = d3.select("#par-coor").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("climateData.csv").then(function(climate) {
+  // Extract the list of dimensions and create a scale for each.
+    //climate[0] contains the header elements, then for all elements in the header
+    //different than "name" it creates and y axis in a dictionary by variable name
+  x.domain(dimensions = d3.keys(climate[0]).filter(function(d) {
+    if(d == "Year") {
+        return y[d] = d3.scaleLinear()
+        .domain(d3.extent(climate, function(p) { 
+            return +p[d]; }))
+        .range([height, 0]);
+    }
+    return y[d] = d3.scaleLinear()
+        .domain(d3.extent(climate, function(p) { 
+            return +p[d]; }))
+        .range([height, 0]);
+  }));
+
+  extents = dimensions.map(function(p) { return [0,0]; });
+
+  // Add grey background lines for context.
+  background = svgParCoor.append("g")
+      .attr("class", "background")
+    .selectAll("path")
+      .data(climate)
+    .enter().append("path")
+      .attr("d", path);
+
+  // Add blue foreground lines for focus.
+  foreground = svgParCoor.append("g")
+      .attr("class", "foreground")
+    .selectAll("path")
+      .data(climate)
+    .enter().append("path")
+      .attr("d", path);
+
+  // Add a group element for each dimension.
+  var g = svgParCoor.selectAll(".dimension")
+      .data(dimensions)
+    .enter().append("g")
+      .attr("class", "dimension")
+      .attr("transform", function(d) {  return "translate(" + x(d) + ")"; })
+      .call(d3.drag()
+        .subject(function(d) { return {x: x(d)}; })
+        .on("start", function(d) {
+          dragging[d] = x(d);
+          background.attr("visibility", "hidden");
+        })
+        .on("drag", function(d) {
+          dragging[d] = Math.min(width, Math.max(0, d3.event.x));
+          foreground.attr("d", path);
+          dimensions.sort(function(a, b) { return position(a) - position(b); });
+          x.domain(dimensions);
+          g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
+        })
+        .on("end", function(d) {
+          delete dragging[d];
+          transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
+          transition(foreground).attr("d", path);
+          background
+              .attr("d", path)
+            .transition()
+              .delay(500)
+              .duration(0)
+              .attr("visibility", null);
+        }));
+  // Add an axis and title.
+  g.append("g")
+      .attr("class", "axis")
+      .each(function(d) {  d3.select(this).call(   
+            getAxis(d)
+        );})
+    .append("text")
+      .style("text-anchor", "middle")
+      .attr("y", -9) 
+      .text(function(d) { return d; });
+
+  // Add and store a brush for each axis.
+  g.append("g")
+      .attr("class", "brush")
+      .each(function(d) {
+        d3.select(this).call(y[d].brush = d3.brushY().extent([[-8, 0], [8,height]]).on("brush start", brushstart).on("brush", brush_parallel_chart));
+      })
+    .selectAll("rect")
+      .attr("x", -8)
+      .attr("width", 16);
+});
+
+function getAxis(d) {
+    if(d=="Year") {
+        return d3.axisLeft(y[d]).tickArguments([15, "d"]);
+    } else {
+        return d3.axisLeft(y[d]);
+    }
+}
+
+function position(d) {
+  var v = dragging[d];
+  return v == null ? x(d) : v;
+}
+
+function transition(g) {
+  return g.transition().duration(500);
+}
+
+// Returns the path for a given data point.
+function path(d) {
+  return line(dimensions.map(function(p) { return [position(p), y[p](d[p])]; }));
+}
+
+function brushstart() {
+  d3.event.sourceEvent.stopPropagation();
+}
+
+ 
+// Handles a brush event, toggling the display of foreground lines.
+function brush_parallel_chart() {    
+    for(var i=0;i<dimensions.length;++i){
+        if(d3.event.target==y[dimensions[i]].brush) {
+            extents[i]=d3.event.selection.map(y[dimensions[i]].invert,y[dimensions[i]]);
+
+        }
+    }
+
+      foreground.style("display", function(d) {
+        return dimensions.every(function(p, i) {
+            if(extents[i][0]==0 && extents[i][0]==0) {
+                return true;
+            }
+          return extents[i][1] <= d[p] && d[p] <= extents[i][0];
+        }) ? null : "none";
+      });
+}
 
 
 //
@@ -255,14 +406,17 @@ function daysInYear(date){
     return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000;
 }
 
-var width = 1500,
-    height = 40,
+var widthCal = 1500,
+    heightCal = 40,
     cellSize = 5;
 
 //var formatPercent = d3.format(".1%");
 
 function renderCalendar(selection) {
     
+    //var t = d3.transition()
+    //        .duration(2000)
+    //        .ease(d3.easeCubic);
 
     var svgCal = d3.select('#calendar').selectAll("svg").remove();
     
@@ -270,14 +424,13 @@ function renderCalendar(selection) {
     .selectAll("svg")
     .data(d3.range(2001, 2016))
     .enter().append("svg")
-        .attr("width", width)
-        .attr("height", height)
+        .attr("width", widthCal)
+        .attr("height", heightCal)
     .append("g")
-        .attr("transform", "translate(" + ((width - cellSize * 53) / 8) + "," + (height - cellSize * 7 - 1) + ")");
+        .attr("transform", "translate(" + ((width - cellSize * 53) / 4) + "," + (heightCal - cellSize * 7 - 1) + ")");
 
     svgCal.append("text")
         .attr("transform", "translate(-20," + cellSize * 3 + ")")
-        .attr("font-family", "sans-serif")
         .attr("font-size", 10)
         .attr("text-anchor", "middle")
         .text(function(d) { return d; });
@@ -294,6 +447,7 @@ function renderCalendar(selection) {
         .attr("height", cellSize+5)
         .attr("x", function(d) { return daysInYear(d) * (cellSize-3); })
         .attr("y", function(d) { return 6; })
+        //.attr("opacity", 0)
         .datum(d3.timeFormat("%Y-%m-%d"));
     
     d3.csv("dailyResultsFormatted.csv").then(function(csv) {
@@ -313,10 +467,11 @@ function renderCalendar(selection) {
             .append("title")
             .text(function(d) { return d + ": " + data[d] + " Hotspots"; });
         });
+
+        //rect.transition(t).attr("opacity", 1);
 }
 
 renderCalendar('All')
-//renderCalendar('NSW')
 
 function select(selection) {
     renderCalendar(selection);

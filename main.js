@@ -262,92 +262,96 @@ var svgParCoor = d3.select("#par-coor").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("climateData.csv").then(function(climate) {
-  // Extract the list of dimensions and create a scale for each.
-    //climate[0] contains the header elements, then for all elements in the header
-    //different than "name" it creates and y axis in a dictionary by variable name
-  x.domain(dimensions = d3.keys(climate[0]).filter(function(d) {
-    if(d == "Year") {
+renderParCoor();
+
+function renderParCoor() {
+    d3.csv("climateData.csv").then(function(climate) {
+    // Extract the list of dimensions and create a scale for each.
+        //climate[0] contains the header elements, then for all elements in the header
+        //different than "name" it creates and y axis in a dictionary by variable name
+    x.domain(dimensions = d3.keys(climate[0]).filter(function(d) {
+        if(d == "Year") {
+            return y[d] = d3.scaleLinear()
+            .domain(d3.extent(climate, function(p) { 
+                return +p[d]; }))
+            .range([height, 0]);
+        }
         return y[d] = d3.scaleLinear()
-        .domain(d3.extent(climate, function(p) { 
-            return +p[d]; }))
-        .range([height, 0]);
-    }
-    return y[d] = d3.scaleLinear()
-        .domain(d3.extent(climate, function(p) { 
-            return +p[d]; }))
-        .range([height, 0]);
-  }));
+            .domain(d3.extent(climate, function(p) { 
+                return +p[d]; }))
+            .range([height, 0]);
+    }));
 
-  extents = dimensions.map(function(p) { return [0,0]; });
+    extents = dimensions.map(function(p) { return [0,0]; });
 
-  // Add grey background lines for context.
-  background = svgParCoor.append("g")
-      .attr("class", "background")
-    .selectAll("path")
-      .data(climate)
-    .enter().append("path")
-      .attr("d", path);
+    // Add grey background lines for context.
+    background = svgParCoor.append("g")
+        .attr("class", "background")
+        .selectAll("path")
+        .data(climate)
+        .enter().append("path")
+        .attr("d", path);
 
-  // Add blue foreground lines for focus.
-  foreground = svgParCoor.append("g")
-      .attr("class", "foreground")
-    .selectAll("path")
-      .data(climate)
-    .enter().append("path")
-      .attr("d", path);
+    // Add blue foreground lines for focus.
+    foreground = svgParCoor.append("g")
+        .attr("class", "foreground")
+        .selectAll("path")
+        .data(climate)
+        .enter().append("path")
+        .attr("d", path);
 
-  // Add a group element for each dimension.
-  var g = svgParCoor.selectAll(".dimension")
-      .data(dimensions)
-    .enter().append("g")
-      .attr("class", "dimension")
-      .attr("transform", function(d) {  return "translate(" + x(d) + ")"; })
-      .call(d3.drag()
-        .subject(function(d) { return {x: x(d)}; })
-        .on("start", function(d) {
-          dragging[d] = x(d);
-          background.attr("visibility", "hidden");
+    // Add a group element for each dimension.
+    var g = svgParCoor.selectAll(".dimension")
+        .data(dimensions)
+        .enter().append("g")
+        .attr("class", "dimension")
+        .attr("transform", function(d) {  return "translate(" + x(d) + ")"; })
+        .call(d3.drag()
+            .subject(function(d) { return {x: x(d)}; })
+            .on("start", function(d) {
+            dragging[d] = x(d);
+            background.attr("visibility", "hidden");
+            })
+            .on("drag", function(d) {
+            dragging[d] = Math.min(width, Math.max(0, d3.event.x));
+            foreground.attr("d", path);
+            dimensions.sort(function(a, b) { return position(a) - position(b); });
+            x.domain(dimensions);
+            g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
+            })
+            .on("end", function(d) {
+            delete dragging[d];
+            transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
+            transition(foreground).attr("d", path);
+            background
+                .attr("d", path)
+                .transition()
+                .delay(500)
+                .duration(0)
+                .attr("visibility", null);
+            }));
+    // Add an axis and title.
+    g.append("g")
+        .attr("class", "axis")
+        .each(function(d) {  d3.select(this).call(   
+                getAxis(d)
+            );})
+        .append("text")
+        .style("text-anchor", "middle")
+        .attr("y", -9) 
+        .text(function(d) { return d; });
+
+    // Add and store a brush for each axis.
+    g.append("g")
+        .attr("class", "brush")
+        .each(function(d) {
+            d3.select(this).call(y[d].brush = d3.brushY().extent([[-8, 0], [8,height]]).on("brush start", brushstart).on("brush", brush_parallel_chart));
         })
-        .on("drag", function(d) {
-          dragging[d] = Math.min(width, Math.max(0, d3.event.x));
-          foreground.attr("d", path);
-          dimensions.sort(function(a, b) { return position(a) - position(b); });
-          x.domain(dimensions);
-          g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
-        })
-        .on("end", function(d) {
-          delete dragging[d];
-          transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
-          transition(foreground).attr("d", path);
-          background
-              .attr("d", path)
-            .transition()
-              .delay(500)
-              .duration(0)
-              .attr("visibility", null);
-        }));
-  // Add an axis and title.
-  g.append("g")
-      .attr("class", "axis")
-      .each(function(d) {  d3.select(this).call(   
-            getAxis(d)
-        );})
-    .append("text")
-      .style("text-anchor", "middle")
-      .attr("y", -9) 
-      .text(function(d) { return d; });
-
-  // Add and store a brush for each axis.
-  g.append("g")
-      .attr("class", "brush")
-      .each(function(d) {
-        d3.select(this).call(y[d].brush = d3.brushY().extent([[-8, 0], [8,height]]).on("brush start", brushstart).on("brush", brush_parallel_chart));
-      })
-    .selectAll("rect")
-      .attr("x", -8)
-      .attr("width", 16);
-});
+        .selectAll("rect")
+        .attr("x", -8)
+        .attr("width", 16);
+    });
+}
 
 function getAxis(d) {
     if(d=="Year") {
@@ -395,6 +399,10 @@ function brush_parallel_chart() {
       });
 }
 
+function clearFilter() {
+    svgParCoor.selectAll("*").remove();
+    renderParCoor();
+}
 
 //
 //

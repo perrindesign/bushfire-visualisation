@@ -87,13 +87,18 @@ function step() {
 
 function update(h) {
     // update position and text of label according to slider scale
+    if(formatDate(h) == "December 2000") {
+        h = new Date(h.getFullYear(), h.getMonth()+1, 1);
+    }
+
     handle.attr("cx", x(h));
     //label
     //    .attr("x", x(h))
     //    .text(formatDate(h));
+    renderSpots(searchDate(h));
+
     dateStat.text(formatDate(h));
     // filter data set and redraw plot
-    renderSpots(searchDate(h));
 }
 
 //
@@ -183,7 +188,7 @@ d3.json("australia.json").then(function (data) {
           button.text("Play");
         } else {
           moving = true;
-          timer = setInterval(step, 1000);
+          timer = setInterval(step, 2000);
           button.text("Pause");
         }
         console.log("Slider moving: " + moving);
@@ -196,7 +201,7 @@ d3.json("australia.json").then(function (data) {
   
 function renderSpots(date) {
     //Load in hotspots data
-    d3.csv("data/" + date + ".csv").then(function (data) {
+    d3.csv("EasyData/" + date + ".csv").then(function (data) {
         var t = d3.transition()
             .duration(300)
             .ease(d3.easeCubic);
@@ -205,7 +210,7 @@ function renderSpots(date) {
         svgMap.selectAll("circle").transition(t)
             .style("opacity",0);
 
-        //dataset = data;
+        dataset = data;
         svgMap.selectAll("circle")
             .remove();
 
@@ -221,8 +226,6 @@ function renderSpots(date) {
             })
             .attr("r", 3)
             .style("fill", "orange")
-            .style("stroke", "gray")
-            .style("stroke-width", .1)
             .style("opacity", 0)
             .append("title")			//Simple tooltip
             .text(function (d) {
@@ -230,7 +233,7 @@ function renderSpots(date) {
             });
 
         svgMap.selectAll("circle").transition(t)
-            .style("opacity",0.1);
+            .style("opacity",0.5);
     });
 }
 

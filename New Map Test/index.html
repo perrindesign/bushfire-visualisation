@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <style>
-        #map { width: 800px; height: 600px; }
+        #map { width: 800px; height: 500px; }
         body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
         .ghbtns { position: relative; top: 4px; margin-left: 5px; }
         a { color: #0077ff; }
@@ -20,22 +20,35 @@
 
 <script src="leaflet-heat.js"></script>
 
+<script src="../d3.js"></script>
+
 <script>
 
-var map = L.map('map', {zoomControl: false}).setView([-37.87, 175.475], 12);
+var map = L.map('map', {zoomControl: false}).setView([-28.85, 133.417], 4);
 
 //Move zoom to a better spot data wise
 L.control.zoom({
      position:'topright'
 }).addTo(map);
 
-var tiles = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map);
+var tiles = L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png").addTo(map);
 
-addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
+var data;
 
-var heat = L.heatLayer(addressPoints).addTo(map);
+d3.csv("../Data/2003-01.csv").then(function (data) {
+    data = data.map(function (p) { return [p["latitude"], p['longitude']]; });
+    var heat = L.heatLayer(data, {
+        radius: 5, 
+        blur: 5, 
+        max: .1,
+        minOpacity: .1,
+        maxZoom: 15,
+        gradient: {
+            0.0: 'orange',
+            1.0: 'red'
+        }
+    }).addTo(map);
+});
 
 </script>
 </body>

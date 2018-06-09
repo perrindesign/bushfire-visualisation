@@ -14,6 +14,10 @@ var startDate = new Date("2000-12-31"),
 
 var playButton = d3.select("#play-button");
 var dateStat = d3.select("#date-stat");
+var hotspotStat = d3.select("#hotspot-stat");
+var tempStat = d3.select("#temp-stat");
+var percipStat = d3.select("#percip-stat");
+var storyStat = d3.select("#story-stat");
 
 var margin = { top: 0, right: 50, bottom: 0, left: 50 },
     width = 900 - margin.left - margin.right,
@@ -96,10 +100,33 @@ function update(h) {
     //    .attr("x", xSlide(h))
     //    .text(formatDate(h));
     renderSpots(searchDate(h));
-
-    dateStat.text(formatDate(h));
+    renderChangeStats(formatDate(h));
     // filter data set and redraw plot
 }
+//
+//
+//Statistics 
+//
+//
+function renderChangeStats(date) {
+    d3.csv("Change.csv").then(function(changeStats) {
+        var index;
+        for (var i=0; i<changeStats.length; i++) {
+            var test = changeStats[i]["Date"];
+            if (test === date){
+                index = i;
+                break;
+            } 
+        }  
+        dateStat.text(date);
+        hotspotStat.text(changeStats[index]["Hotspots"] + " Hotspots");
+        tempStat.text(changeStats[index]["Temperature"] + "℃");
+        percipStat.text(changeStats[index]["Precipitation"] + "mm");
+        storyStat.text(changeStats[index]["Story"]);
+
+    });
+}
+
 
 //
 //
@@ -195,6 +222,7 @@ d3.json("australia.json").then(function (data) {
     })
 
     renderSpots("2001-01");
+    renderChangeStats("January 2001")
     
 
 });

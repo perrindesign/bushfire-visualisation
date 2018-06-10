@@ -147,3 +147,10 @@ p {
   font-family: "avenir next", Arial, sans-serif;
   font-size: 12px;
 }
+
+#map { 
+    width: 925px; 
+    height: 500px;
+    margin-left: 40px;
+    margin-bottom: 40px;
+}

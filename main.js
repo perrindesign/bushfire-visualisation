@@ -134,133 +134,75 @@ function renderChangeStats(date) {
 //
 //
 
-//Width and height
-var w = 1000;
-var h = 700;
-var areas = [];
-
-//Define path generator, using the geoMercator projection
-
-var projection = d3.geoMercator()
-    .center([134, -25])
-    .scale(800)
-    .translate([w / 2, h / 2]);
-
-var geoPath = d3.geoPath()
-    .projection(projection);
-
-//Define quantize scale to sort data values into buckets of color
-var color = d3.scaleQuantize()
-    .range(["rgb(0,0,0)",
-        "rgb(50,50,50)",
-        "rgb(75,75,75)",
-        "rgb(105,105,105)",
-        "rgb(128,128,128)",
-        "rgb(140,140,140)",
-        "rgb(169,169,169)",
-        "rgb(192,192,192)",
-        "rgb(211,211,211)",
-        "rgb(220,220,220)",
-        "rgb(245,245,245)",
-        "rgb(255,255,255)"]);
 
 //Number formatting for population values
 var formatAsThousands = d3.format(",");  //e.g. converts 123456 to "123,456"
 
-//Create SVG element
-var svgMap = d3.select("#map")
-    .append("svg")
-    .attr("width", w)
-    .attr("height", h);
+var map = L.map('map', {zoomControl: false}).setView([-28.85, 133.417], 4);
 
-//Load in GeoJSON data
-d3.json("australia.json").then(function (data) {
+//Move zoom to a better spot data wise
+L.control.zoom({
+     position:'topright'
+}).addTo(map);
 
-
-
-    for (var i = 0; i < data.features.length; i++) {
-        //var n = data.features[i].properties.SA2_NAME16; 
-        var a = data.features[i].properties.AREASQKM16;
-        //names.push(n);
-        areas.push(a);
+var tiles = L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png").addTo(map);
+    
+playButton
+    .on("click", function() {
+    var button = d3.select(this);
+    if (button.text() == "Pause") {
+        moving = false;
+        clearInterval(timer);
+        // timer = 0;
+        button.text("Play");
+    } else {
+        moving = true;
+        timer = setInterval(step, 2000);
+        button.text("Pause");
     }
+    //console.log("Slider moving: " + moving);
+})
 
-    //Set input domain for color scale
-    color.domain([
-        d3.min(areas),
-        d3.max(areas)
-    ]);
-
-    //Bind data and create one path per GeoJSON feature
-    svgMap.selectAll("path")
-        .data(data.features)
-        .enter()
-        .append("path")
-        .attr("d", geoPath)
-        .style("fill", function (d) {
-            var value = d.properties.AREASQKM16;
-            //return color(value);
-            return "rgb(75,75,75)"
-        })
-        .style("stroke", "rgba(128,128,128,0.5)")
-        .style("stroke-width", "1");
-    
-    playButton
-        .on("click", function() {
-        var button = d3.select(this);
-        if (button.text() == "Pause") {
-          moving = false;
-          clearInterval(timer);
-          // timer = 0;
-          button.text("Play");
-        } else {
-          moving = true;
-          timer = setInterval(step, 2000);
-          button.text("Pause");
-        }
-        //console.log("Slider moving: " + moving);
-    })
-
-    renderSpots("2001-01");
-    renderChangeStats("January 2001")
-    
-
-});
+renderSpots("2003-01");
+renderChangeStats("January 2001")
+var oldData = [];
   
 function renderSpots(date) {
     //Load in hotspots data
-    d3.csv("EasyData/" + date + ".csv").then(function (data) {
-        var t = d3.transition()
-            .duration(300)
-            .ease(d3.easeCubic);
+    var data;
+    var heat;
+
+    d3.csv("Data/" + date + ".csv").then(function (data) {
+        data = data.map(function (p) { return [p["latitude"], p['longitude']]; });
+
+
+        heat = L.heatLayer(oldData, {
+            radius: 5, 
+            blur: 5, 
+            max: .1,
+            minOpacity: .1,
+            maxZoom: 15,
+            gradient: {
+                0.0: 'orange',
+                1.0: 'red'
+            }    
+        }).addTo(map);
         
-        
-        svgMap.selectAll("circle").transition(t)
-            .style("opacity",0);
+        heat.onRemove(map);
 
-        svgMap.selectAll("circle")
-            .remove();
+        heat = L.heatLayer(data, {
+            radius: 5, 
+            blur: 5, 
+            max: .1,
+            minOpacity: .1,
+            maxZoom: 15,
+            gradient: {
+                0.0: 'orange',
+                1.0: 'red'
+            }    
+        }).addTo(map);
 
-        svgMap.selectAll("circle")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("cx", function (d) {
-                return projection([d.longitude, d.latitude])[0];
-            })
-            .attr("cy", function (d) {
-                return projection([d.longitude, d.latitude])[1];
-            })
-            .attr("r", 3)
-            .style("fill", "orange")
-            .style("opacity", 0)
-            .append("title")			//Simple tooltip
-            .text(function (d) {
-                return "Location: " + d.longitude + ", " + d.latitude;
-            });
-
-        svgMap.selectAll("circle").transition(t)
-            .style("opacity",0.5);
+        oldData = data;
     });
 }
 

@@ -18,6 +18,7 @@ var hotspotStat = d3.select("#hotspot-stat");
 var tempStat = d3.select("#temp-stat");
 var percipStat = d3.select("#percip-stat");
 var storyStat = d3.select("#story-stat");
+var maxHotspots = d3.select("#max-hotspots");
 
 var margin = { top: 0, right: 50, bottom: 0, left: 50 },
     width = 900 - margin.left - margin.right,
@@ -381,8 +382,6 @@ var widthCal = 1500,
     heightCal = 40,
     cellSize = 5;
 
-//var formatPercent = d3.format(".1%");
-
 function renderCalendar(selection) {
     
     //var t = d3.transition()
@@ -423,11 +422,12 @@ function renderCalendar(selection) {
     
     d3.csv("dailyResultsFormatted.csv").then(function(csv) {
         var max = d3.max(csv, function(d) { return parseInt(d[selection]); });
+        
+        maxHotspots.text(formatAsThousands(max) + " Hotspots");
 
         var color = d3.scaleSequential()
             .domain([1, max])
             .interpolator(d3.interpolateYlOrRd)
-            //.range(["#F8DE9A", "#D74F28"]);
 
         var data = d3.nest()
             .key(function(d) { return d.Date; })
@@ -448,3 +448,49 @@ renderCalendar('All')
 function select(selection) {
     renderCalendar(selection);
 }
+
+//make the svg container 
+var calendarScale = d3.select("#calendar-scale-svg").append("svg")
+    .attr("width", 300)
+    .attr("height", 10);
+
+//make the rectangle 
+var rectangle = calendarScale.append("rect")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", 300)
+    .attr("height", 10)
+    .attr("fill", "url(#grad)");//"linear-gradient(-90deg, red, yellow)");
+
+//make defs and add the linear gradient
+var linGrad = calendarScale.append("defs").append("linearGradient")
+    .attr("id", "grad")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("y1", "0%")
+    .attr("y2", "0%");
+
+linGrad.append("stop")
+    .attr("offset", "0%")
+    .style("stop-color", "#FEFED0")
+    .style("stop-opacity", 1)
+
+linGrad.append("stop")
+    .attr("offset", "25%")
+    .style("stop-color", "#F6D07B")
+    .style("stop-opacity", 1)    
+
+linGrad.append("stop")
+    .attr("offset", "50%")
+    .style("stop-color", "#EE9A51")
+    .style("stop-opacity", 1)
+
+linGrad.append("stop")
+    .attr("offset", "75%")
+    .style("stop-color", "#CE362D")
+    .style("stop-opacity", 1)
+
+linGrad.append("stop")
+    .attr("offset", "100%")
+    .style("stop-color", "#751528")
+    .style("stop-opacity", 1)

@@ -68,11 +68,19 @@
           Western Australia
       </button>
   </div>
+
   <div id="calendar"></div>
+  <div id="calendar-scale">
+    <div id="calendar-scale-svg"></div>
+    <p class="callabel">Minimum</p>
+    <p class="callabel" id="max-hotspots-label">Maximum</p> <br/>
+    <p class="calnum">0 Hotspots</p>
+    <p class="calnum" id="max-hotspots">9,048 Hotspots</p>
+  </div>
   
   <script src="main.js"></script>
   <script>
-    // Add active class to the current button (highlight it)
+    // Add active class to the current button (darken it)
     $('button').on('click', function(){
         $('button').removeClass('active');
         $(this).addClass('active');

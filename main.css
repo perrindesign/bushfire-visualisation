@@ -161,3 +161,28 @@ p {
     z-index: 1;
 }
 
+.callabel{
+    position: absolute;
+    display: inline-block;
+}
+
+.calnum{ 
+    position: absolute;
+    display: inline-block;
+}
+
+#max-hotspots-label{
+    width: 300px;
+    text-align: right; 
+}
+
+#max-hotspots{
+    width: 300px;
+    text-align: right; 
+}
+
+#calendar-scale{
+    margin-top: 50px;
+    margin-left: 450px;
+}
+

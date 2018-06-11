@@ -84,19 +84,23 @@ p {
     display:inline-block;
 }
 
+.reset {
+    margin-left: 170px;
+    margin-bottom: 100px;
+}
+
 .control {
     background: #f08630;
     border: none;
     border-radius: 3px;
     color: white;
-    margin: 0;
     padding: 0 12px;
     cursor: pointer;
     height: 30px;
     font-family: "avenir next", Arial, sans-serif;
   }
 
-  .control:hover {
+  .control:hover, button.active {
     background-color: #696969;
   }
 
@@ -106,7 +110,8 @@ p {
 
   .stats-group {
     position: absolute;
-    margin-left: 40px;
+    margin-left: 50px;
+    z-index: 3;
   }
 
 #par-coor{
@@ -153,4 +158,6 @@ p {
     height: 500px;
     margin-left: 40px;
     margin-bottom: 40px;
+    z-index: 1;
 }
+

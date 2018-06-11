@@ -6,6 +6,7 @@
   <script src="https://unpkg.com/d3-simple-slider"></script>
   <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
   <script src="leaflet-heat.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
   <link href="main.css" rel="stylesheet" type="text/css"></link>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
@@ -32,14 +33,14 @@
 
     In southeast Australia, bushfires tend to be most common and most severe during summer and autumn (December–March), in drought years, and particularly severe in El Niño years. Southeast Australia is fire-prone, and warm and dry conditions intensify the probability of fire. In northern Australia, bushfires usually occur during the dry season (April to September), and fire severity tends to be more associated with seasonal weather patterns. In the southwest, similarly, bushfires occur in the summer dry season and severity is usually related to seasonal growth. Fire frequency in the north is difficult to assess, as the vast majority of fires are caused by human activity, however lightning strikes are as common a cause as human-ignited fires and arson.</p>
   <div id="par-coor"></div>
-  <button class="control" onclick="clearFilter()">
+  <button class="control reset" onclick="clearFilter()">
         Reset Filter
     </button>
   <p>Bushfires in Australia can occur all year-round, though the severity and the "bushfire season" varies by region. These seasons are commonly grouped into years such as "2006-07 Australian bushfire season" and typically run from June one year until May the next year.
 
         In southeast Australia, bushfires tend to be most common and most severe during summer and autumn (December–March), in drought years, and particularly severe in El Niño years. Southeast Australia is fire-prone, and warm and dry conditions intensify the probability of fire. In northern Australia, bushfires usually occur during the dry season (April to September), and fire severity tends to be more associated with seasonal weather patterns. In the southwest, similarly, bushfires occur in the summer dry season and severity is usually related to seasonal growth. Fire frequency in the north is difficult to assess, as the vast majority of fires are caused by human activity, however lightning strikes are as common a cause as human-ignited fires and arson.</p>    
-  <div class="control-group">
-      <button class="control" onclick="select('All')">
+  <div class="control-group" id="buttons">
+      <button class="control active" onclick="select('All')">
           Nationwide
       </button>
       <button class="control" onclick="select('ACT')">
@@ -70,4 +71,11 @@
   <div id="calendar"></div>
   
   <script src="main.js"></script>
+  <script>
+    // Add active class to the current button (highlight it)
+    $('button').on('click', function(){
+        $('button').removeClass('active');
+        $(this).addClass('active');
+    });
+    </script>
 </body>

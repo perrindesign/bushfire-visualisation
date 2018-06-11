@@ -153,11 +153,10 @@ playButton
     if (button.text() == "Pause") {
         moving = false;
         clearInterval(timer);
-        // timer = 0;
         button.text("Play");
     } else {
         moving = true;
-        timer = setInterval(step, 2000);
+        timer = setInterval(step, 500);
         button.text("Pause");
     }
     //console.log("Slider moving: " + moving);
@@ -165,30 +164,20 @@ playButton
 
 renderSpots("2003-01");
 renderChangeStats("January 2001")
-var oldData = [];
-  
+
+var heat = 0;
+
 function renderSpots(date) {
     //Load in hotspots data
     var data;
-    var heat;
 
     d3.csv("Data/" + date + ".csv").then(function (data) {
         data = data.map(function (p) { return [p["latitude"], p['longitude']]; });
 
-
-        heat = L.heatLayer(oldData, {
-            radius: 5, 
-            blur: 5, 
-            max: .1,
-            minOpacity: .1,
-            maxZoom: 15,
-            gradient: {
-                0.0: 'orange',
-                1.0: 'red'
-            }    
-        }).addTo(map);
-        
-        heat.onRemove(map);
+        if (heat != 0) {
+            map.removeLayer(heat);
+        }
+        //map.removeLayer(heat);
 
         heat = L.heatLayer(data, {
             radius: 5, 
@@ -200,9 +189,10 @@ function renderSpots(date) {
                 0.0: 'orange',
                 1.0: 'red'
             }    
-        }).addTo(map);
-
-        oldData = data;
+        });//.addTo(map);
+        
+        map.addLayer(heat);
+        
     });
 }
 
@@ -431,9 +421,10 @@ function renderCalendar(selection) {
     d3.csv("dailyResultsFormatted.csv").then(function(csv) {
         var max = d3.max(csv, function(d) { return parseInt(d[selection]); });
 
-        var color = d3.scaleLinear()
+        var color = d3.scaleSequential()
             .domain([1, max])
-            .range(["#f2f2f2", "#ff4000"]);
+            .interpolator(d3.interpolateYlOrRd)
+            //.range(["#F8DE9A", "#D74F28"]);
 
         var data = d3.nest()
             .key(function(d) { return d.Date; })

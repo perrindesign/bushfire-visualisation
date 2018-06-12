@@ -1,8 +1,12 @@
+//Bushfire and Climate Change Information Visualisation 
+
+
 //
 //
 //Slider 
 //
 //
+
 
 //Formatting the dates
 var formatDateIntoYear = d3.timeFormat("%Y");
@@ -134,7 +138,7 @@ function renderChangeStats(date) {
         tempChangeStat.text("Percent Change: " + changeStats[index]["ChangeTemperature"]);
         percipStat.text("Average Rainfall: " + formatAsDecimals(changeStats[index]["Precipitation"]) + "mm");
         percipChangeStat.text("Percent Change: " + changeStats[index]["ChangePrecipitation"]);
-        storyStat.text(changeStats[index]["Story"]);
+        storyStat.text("Notable Event: " + changeStats[index]["Story"]);
     });
 }
 
@@ -144,6 +148,7 @@ function renderChangeStats(date) {
 //Map 
 //
 //
+
 
 var map = L.map('map', {zoomControl: false}).setView([-28.85, 133.417], 4);
 
@@ -169,7 +174,7 @@ playButton
     //console.log("Slider moving: " + moving);
 })
 
-renderSpots("2003-01");
+renderSpots("2001-01");
 renderChangeStats("January 2001")
 
 var heat = 0;
@@ -203,11 +208,13 @@ function renderSpots(date) {
     });
 }
 
+
 //
 //
 //Parallel Coordinates
 //
 //
+
 
 var margin = {top: 30, right: 10, bottom: 10, left: 10},
     width = 1200 - margin.left - margin.right,
@@ -371,11 +378,13 @@ function clearFilter() {
     renderParCoor();
 }
 
+
 //
 //
 //Calendar
 //
 //
+
 
 function daysInYear(date){
     return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000;

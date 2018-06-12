@@ -79,40 +79,34 @@ slider.insert("g", ".track-overlay")
     .attr("text-anchor", "middle")
     .text(function (d) { return formatDateIntoYear(d); });
 
-slider.insert("g", ".track-ticks")
-    .attr("class", "ticks")
-    .selectAll("text")
-    .data(xSlide.ticks(192))
-    .enter()
-    .append("text")
-    .attr("x", xSlide)
-    .attr("y", 0)
-    .attr("text-anchor", "middle")
-    .text(function (date) { 
-            ticker(date);
+d3.csv("Change.csv").then(function(changeStats) {
+    slider.insert("g", ".track-ticks")
+        .attr("class", "ticks")
+        .selectAll("text")
+        .data(xSlide.ticks(192))
+        .enter()
+        .append("text")
+        .attr("x", xSlide)
+        .attr("y", 0)
+        .attr("text-anchor", "middle")
+        .text(function (date) { 
+            var index = 0;
+            var result;
+            for (var i=0; i<changeStats.length; i++) {
+                var test = changeStats[i]["Date"];
+                if (test === formatDate(date)){
+                    index = i;
+                    break;
+                } 
+            }  
+
+            if(changeStats[index]["Story"] === "") {
+                return "."; 
+            } else {
+                return "I"; 
+            }
         });
-
-function ticker(date) {
-    var result;
-    d3.csv("Change.csv").then(function(changeStats) {
-        var index;
-        for (var i=0; i<changeStats.length; i++) {
-            var test = changeStats[i]["Date"];
-            if (test === formatDate(date)){
-                index = i;
-                break;
-            } 
-        }  
-
-        if(changeStats[index]["Story"] === "") {
-            result = "."; 
-        } else {
-            result = "I"; 
-        }
-        console.log("test");
-    });
-    return Promise.resolve(result);
-}
+});   
 
 //var label = slider.append("text")
 //    .attr("class", "label")

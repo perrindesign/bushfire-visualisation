@@ -9,6 +9,10 @@ var formatDateIntoYear = d3.timeFormat("%Y");
 var formatDate = d3.timeFormat("%B %Y");
 var searchDate = d3.timeFormat("%Y-%m");
 
+//Number formatting for population values
+var formatAsThousands = d3.format(",");  //e.g. converts 123456 to "123,456"
+var formatAsDecimals = d3.format(".1f");
+
 var startDate = new Date("2000-12-31"),
     endDate = new Date("2016-12-01");
 
@@ -16,7 +20,9 @@ var playButton = d3.select("#play-button");
 var dateStat = d3.select("#date-stat");
 var hotspotStat = d3.select("#hotspot-stat");
 var tempStat = d3.select("#temp-stat");
+var tempChangeStat = d3.select("#temp-change-stat");
 var percipStat = d3.select("#percip-stat");
+var percipChangeStat = d3.select("#percip-change-stat");
 var storyStat = d3.select("#story-stat");
 var maxHotspots = d3.select("#max-hotspots");
 
@@ -123,11 +129,12 @@ function renderChangeStats(date) {
             } 
         }  
         dateStat.text(date);
-        hotspotStat.text(changeStats[index]["Hotspots"] + " Hotspots");
-        tempStat.text(changeStats[index]["Temperature"] + "℃");
-        percipStat.text(changeStats[index]["Precipitation"] + "mm");
+        hotspotStat.text(formatAsThousands(changeStats[index]["Hotspots"]));
+        tempStat.text("Average Temp: " + formatAsDecimals(changeStats[index]["Temperature"]) + "℃");
+        tempChangeStat.text("Percent Change: " + changeStats[index]["ChangeTemperature"]);
+        percipStat.text("Average Rainfall: " + formatAsDecimals(changeStats[index]["Precipitation"]) + "mm");
+        percipChangeStat.text("Percent Change: " + changeStats[index]["ChangePrecipitation"]);
         storyStat.text(changeStats[index]["Story"]);
-
     });
 }
 
@@ -137,10 +144,6 @@ function renderChangeStats(date) {
 //Map 
 //
 //
-
-
-//Number formatting for population values
-var formatAsThousands = d3.format(",");  //e.g. converts 123456 to "123,456"
 
 var map = L.map('map', {zoomControl: false}).setView([-28.85, 133.417], 4);
 

@@ -110,8 +110,33 @@ p {
 
   .stats-group {
     position: absolute;
-    margin-left: 50px;
+    margin-top: 10px;
+    margin-left: 60px;
     z-index: 3;
+  }
+
+  .stats{
+    line-height: 8px;
+    font-weight: 600;
+  }
+
+  .stats-big{ 
+    font-size: 18px;
+  }
+
+  .stats-bigger{ 
+    font-size: 30px;
+  }
+
+  .stats-note{ 
+    font-size: 10px;
+  }
+
+  .story{
+    position: absolute;
+    margin-top: 160px;
+    z-index: 3;
+    white-space: nowrap;
   }
 
 #par-coor{
@@ -182,7 +207,7 @@ p {
 }
 
 #calendar-scale{
-    margin-top: 50px;
+    margin-top: 20px;
     margin-left: 450px;
 }
 
@@ -190,4 +215,13 @@ p {
     width: 728px;
     margin-top: 20px;
     margin-left: 232px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #69696971;
+    margin: 1em 0;
+    padding: 0;
 }

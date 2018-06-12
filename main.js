@@ -1,4 +1,4 @@
-//Bushfire and Climate Change Information Visualisation 
+//Bushfire and Climate Change Information Visualisation by Perrin Anto Jones
 
 
 //
@@ -80,7 +80,7 @@ slider.insert("g", ".track-overlay")
     .text(function (d) { return formatDateIntoYear(d); });
 
 d3.csv("Change.csv").then(function(changeStats) {
-    slider.insert("g", ".track-ticks")
+    slider.insert("g", ".track-overlay")
         .attr("class", "ticks")
         .selectAll("text")
         .data(xSlide.ticks(192))
@@ -197,7 +197,7 @@ playButton
         button.text("Play");
     } else {
         moving = true;
-        timer = setInterval(step, 500);
+        timer = setInterval(step, 1000);
         button.text("Pause");
     }
     //console.log("Slider moving: " + moving);
@@ -218,7 +218,6 @@ function renderSpots(date) {
         if (heat != 0) {
             map.removeLayer(heat);
         }
-        //map.removeLayer(heat);
 
         heat = L.heatLayer(data, {
             radius: 5, 
@@ -230,7 +229,7 @@ function renderSpots(date) {
                 0.0: 'orange',
                 1.0: 'red'
             }    
-        });//.addTo(map);
+        });
         
         map.addLayer(heat);
         

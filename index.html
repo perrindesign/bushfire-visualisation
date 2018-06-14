@@ -16,75 +16,92 @@
 
 
 <body>
-  <h2>Climate Change's Impact on Bushfires in Australia?</h2>
-  <p>Blazes during the past decade have cau sed some of the worst bushfire devastation seen in Australia, with hundreds of thousands of hectares destroyed, some 180 people killed and thousands of homes and buildings lost. Extreme fire conditions increased the severity and intensity of fires and prompted the creation of a new fire alert level – catastrophic
-    There are many ways a bushfire can start, but for a fire to keep burning it needs fuel, oxygen and heat. Hot, dry and windy conditions and a large amount of dry vegetation can turn a small spark into a destructive blaze that can take weeks to bring under control</p>
-  <button id="play-button">Play</button>
-  <div id="slider"></div>
-  <div class="stats-group">
-    <div>
-      <p class="stats stats-bigger" id="hotspot-stat">0</p>
-      <p class="stats stats-big">hotspots in</p>
-      <p class="stats stats-big" id="date-stat">January 2001</p> <hr/>
-      <p class="stats" id="temp-stat">Average Temp:</p> 
-      <p class="stats" id="temp-change-stat">Percent Change: +1.1%</p> <hr/>
-      <p class="stats" id="percip-stat">Average Rainfall:</p>
-      <p class="stats" id="percip-change-stat">Percent Change: +2.1%</p> <hr/>
-      <p class="stats stats-note" id="change-note">Percent change based on corresponding</p>
-      <p class="stats stats-note" id="change-note">month averages from 1901-2001</p>
+  <h2>Will Bushfires Get Worse in Australia?</h2>
+  <div class="section">
+    <p>Bushfires are an always present part of Australia's history, but with recent blazes in the past decade destroying properties and lives, what does the future of bushfires look like? </p>
+    <p>By analysing data from NASA's Fire Information for Resource Management System (FIRMS) - we're better able to understand and predict the likelihood of future natural disasters. FIRMS collects infrared hotspots, clear indicators of bushfire activity, over a square kilometre using a system of satellites. This can create a map over time which can document the potential underlying cause of these bushfires. A major challenge in mapping such data previously was the poor documentation on rural and regional parts of the country, with a stronger focus on more populated cities along the East and West coast of Australia.</p>
+  </div>
+
+  <div class="section">
+    <h3>Climate Change's Role</h3>
+    <p>Bushfires usually occur between August and January, with hotter and drier conditions becoming a challenge for firefighters. A rise in temperatures across the country in the past 15 years could mean future bushfire seasons last longer. Another factor that comes into play is the more extreme recordings of minimum and maximum rainfall.</p>
+  </div>
+
+  <div class="section">
+    <h3>Visualising Recent Bushfire History</h3>
+    <p>15 years of this hotspot data has been paired with climate data from the World Bank Group. Given an average of 20,000 hotspots per month for the 21st century, explore the recent years activity along with notable events in recent history. The percent change allows for a better understanding of how our climate is fluctuating during that month and possible conditions for these bushfires to thrive in.</p>
+    <button id="play-button">Play</button>
+    <div id="slider"></div>
+    <div class="stats-group">
+        <div>
+        <p class="stats stats-bigger" id="hotspot-stat">0</p>
+        <p class="stats stats-big">hotspots in</p>
+        <p class="stats stats-big" id="date-stat">January 2001</p> <hr/>
+        <p class="stats" id="temp-stat">Average Temp:</p> 
+        <p class="stats" id="temp-change-stat">Percent Change: +1.1%</p> <hr/>
+        <p class="stats" id="percip-stat">Average Rainfall:</p>
+        <p class="stats" id="percip-change-stat">Percent Change: +2.1%</p> <hr/>
+        <p class="stats stats-note" id="change-note">Percent change based on corresponding</p>
+        <p class="stats stats-note" id="change-note">month averages from 1901-2001</p>
+        </div>
+        <p class="stats story" id="story-stat"></p>
     </div>
-    <p class="stats story" id="story-stat"></p>
+
+    <div id="map"></div>
   </div>
-
-  <div id="map"></div>
-  <p>Bushfires in Australia can occur all year-round, though the severity and the "bushfire season" varies by region. These seasons are commonly grouped into years such as "2006-07 Australian bushfire season" and typically run from June one year until May the next year.
-
-    In southeast Australia, bushfires tend to be most common and most severe during summer and autumn (December–March), in drought years, and particularly severe in El Niño years. Southeast Australia is fire-prone, and warm and dry conditions intensify the probability of fire. In northern Australia, bushfires usually occur during the dry season (April to September), and fire severity tends to be more associated with seasonal weather patterns. In the southwest, similarly, bushfires occur in the summer dry season and severity is usually related to seasonal growth. Fire frequency in the north is difficult to assess, as the vast majority of fires are caused by human activity, however lightning strikes are as common a cause as human-ignited fires and arson.</p>
-  <div id="par-coor"></div>
-  <button class="control reset" onclick="clearFilter()">
-        Reset Filter
+  
+  <div class="section">
+    <h3>Exploring the Connections</h3>
+    <p>Below is a parallel coordinates graph with both the relevant climate conditions and hotspot activity. Select values on an axis to filter and see the relationships of both the overall bushfire seasons and climates effect on them. The axes can also be reordered by dragging them to the desired position.</p>
+    <div id="par-coor"></div>
+    <button class="control reset" onclick="clearFilter()">
+            Reset Filter
     </button>
-  <p>Bushfires in Australia can occur all year-round, though the severity and the "bushfire season" varies by region. These seasons are commonly grouped into years such as "2006-07 Australian bushfire season" and typically run from June one year until May the next year.
-
-        In southeast Australia, bushfires tend to be most common and most severe during summer and autumn (December–March), in drought years, and particularly severe in El Niño years. Southeast Australia is fire-prone, and warm and dry conditions intensify the probability of fire. In northern Australia, bushfires usually occur during the dry season (April to September), and fire severity tends to be more associated with seasonal weather patterns. In the southwest, similarly, bushfires occur in the summer dry season and severity is usually related to seasonal growth. Fire frequency in the north is difficult to assess, as the vast majority of fires are caused by human activity, however lightning strikes are as common a cause as human-ignited fires and arson.</p>    
-  <div class="control-group" id="buttons">
-      <button class="control active" onclick="select('All')">
-          Nationwide
-      </button>
-      <button class="control" onclick="select('ACT')">
-          Australian Capital Territory
-      </button>
-      <button class="control" onclick="select('NSW')">
-          New South Wales
-      </button>
-      <button class="control" onclick="select('NRT')">
-          Northern Territory
-      </button>
-      <button class="control" onclick="select('QSL')">
-          Queensland
-      </button>
-      <button class="control" onclick="select('SA')">
-          South Australia
-      </button>
-      <button class="control" onclick="select('TAS')">
-          Tasmania
-      </button>
-      <button class="control" onclick="select('VIC')">
-          Victoria
-      </button>
-      <button class="control" onclick="select('WA')">
-          Western Australia
-      </button>
+    <p>Through this graph, we can see that higher temperatures and lower precipitation lead to some of the highest hotspot activity. With both of these climate changes in our future, we are likely to see more bushfires popping up through Australia.</p>
   </div>
 
-  <img src="Graphics/CalScale.png" alt="January - December" id="calendar-axis">
-  <div id="calendar"></div>
-  <div id="calendar-scale">
-    <div id="calendar-scale-svg"></div>
-    <p class="callabel">Minimum</p>
-    <p class="callabel" id="max-hotspots-label">Maximum</p> <br/>
-    <p class="calnum">0 Hotspots</p>
-    <p class="calnum" id="max-hotspots">9,048 Hotspots</p>
+  <div class="section">
+    <h3>Seasons Play a Large Part</h3>
+    <p>Although we can see trends in Australia overall, it is important to consider the seasonality of the fire seasons for different parts of Australia. Notable events like the Canberra bushfires in 2003 and the The Great Divide bushfires in Victoria in 2006 and 2007 can also be viewed, while other large bushfires appear that were never documented due to their lack of threat and isolation.</p>   
+    <div class="control-group" id="buttons">
+        <button class="control active" onclick="select('All')">
+            Nationwide
+        </button>
+        <button class="control" onclick="select('ACT')">
+            Australian Capital Territory
+        </button>
+        <button class="control" onclick="select('NSW')">
+            New South Wales
+        </button>
+        <button class="control" onclick="select('NRT')">
+            Northern Territory
+        </button>
+        <button class="control" onclick="select('QSL')">
+            Queensland
+        </button>
+        <button class="control" onclick="select('SA')">
+            South Australia
+        </button>
+        <button class="control" onclick="select('TAS')">
+            Tasmania
+        </button>
+        <button class="control" onclick="select('VIC')">
+            Victoria
+        </button>
+        <button class="control" onclick="select('WA')">
+            Western Australia
+        </button>
+    </div>
+
+    <img src="Graphics/CalScale.png" alt="January - December" id="calendar-axis">
+    <div id="calendar"></div>
+    <div id="calendar-scale">
+        <div id="calendar-scale-svg"></div>
+        <p class="callabel">Minimum</p>
+        <p class="callabel" id="max-hotspots-label">Maximum</p> <br/>
+        <p class="calnum">0 Hotspots</p>
+        <p class="calnum" id="max-hotspots">9,048 Hotspots</p>
+    </div>
   </div>
   <script src="main.js"></script>
   <script>

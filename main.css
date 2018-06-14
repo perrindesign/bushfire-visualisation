@@ -10,8 +10,16 @@ h2 {
     font-size:36px;
 }
 
+h3 {
+    font-size: 24px;
+}
+
 p {
-    font-size: 14px;
+    font-size: 15px;
+}
+
+.section {
+    padding-bottom: 25px;
 }
 
 .ticks {
@@ -86,7 +94,7 @@ p {
 
 .reset {
     margin-left: 170px;
-    margin-bottom: 100px;
+    margin-bottom: 40px;
 }
 
 .control {
@@ -141,7 +149,7 @@ p {
 
 #par-coor{
     padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
 }
 
 
@@ -189,11 +197,13 @@ p {
 .callabel{
     position: absolute;
     display: inline-block;
+    font-size: 12px;
 }
 
 .calnum{ 
     position: absolute;
     display: inline-block;
+    font-size: 12px;
 }
 
 #max-hotspots-label{
@@ -208,7 +218,7 @@ p {
 
 #calendar-scale{
     margin-top: 20px;
-    margin-left: 450px;
+    margin-left: 660px;
 }
 
 #calendar-axis{
